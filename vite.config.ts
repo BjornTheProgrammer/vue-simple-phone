@@ -2,6 +2,7 @@ import { resolve } from 'node:path';
 import vue from '@vitejs/plugin-vue';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
+import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -35,6 +36,9 @@ export default defineConfig({
 			outDir: 'dist/types',
 			rollupTypes: true,
 			tsconfigPath: './tsconfig.app.json',
+		}),
+		viteStaticCopy({
+			targets: [{ src: 'src/themes', dest: './' }],
 		}),
 	],
 });

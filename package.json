@@ -3,7 +3,9 @@
 	"private": true,
 	"version": "0.0.0",
 	"type": "module",
-	"files": ["dist"],
+	"files": [
+		"dist"
+	],
 	"main": "./dist/vue-simple-phone.umd.cjs",
 	"module": "./dist/vue-simple-phone.js",
 	"exports": {
@@ -17,7 +19,7 @@
 				"default": "./dist/vue-simple-phone.umd.cjs"
 			}
 		},
-		"./vue-simple-phone.css": "./dist/vue-simple-phone.css"
+		"./themes/*": "./dist/themes/*"
 	},
 	"scripts": {
 		"dev": "npm run docs:dev",
@@ -40,6 +42,7 @@
 		"typescript": "~5.6.2",
 		"vite": "^6.0.1",
 		"vite-plugin-dts": "^4.3.0",
+		"vite-plugin-static-copy": "^2.2.0",
 		"vitepress": "^1.5.0",
 		"vue": "^3.5.13",
 		"vue-tsc": "^2.1.10"
