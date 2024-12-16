@@ -17,7 +17,7 @@ import { VueSimplePhone } from 'vue-simple-phone'
 </template>
 ```
 
-<VueSimplePhone>Phone Number</VueSimplePhone>
+<VueSimplePhone style="padding-top: 10px;">Phone Number</VueSimplePhone>
 
 ## Getting A Value
 
@@ -44,8 +44,10 @@ import { getExample } from 'awesome-phonenumber'
 const phone = ref();
 </script>
 
-<VueSimplePhone v-model="phone"/>
+<VueSimplePhone v-model="phone" :value="getExample('US').number?.national || ''"/>
+<pre>
 {{ phone }}
+</pre>
 
 ## Options
 

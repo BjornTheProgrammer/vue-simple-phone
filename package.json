@@ -8,12 +8,17 @@
 	"module": "./dist/vue-simple-phone.js",
 	"exports": {
 		".": {
-			"import": "./dist/vue-simple-phone.js",
-			"require": "./dist/vue-simple-phone.umd.cjs"
+			"import": {
+				"types": "./dist/types/index.d.ts",
+				"default": "./dist/vue-simple-phone.js"
+			},
+			"require": {
+				"types": "./dist/types/index.d.ts",
+				"default": "./dist/vue-simple-phone.umd.cjs"
+			}
 		},
 		"./vue-simple-phone.css": "./dist/vue-simple-phone.css"
 	},
-	"types": "./dist/types",
 	"scripts": {
 		"dev": "npm run docs:dev",
 		"build": "vue-tsc -b && vite build",

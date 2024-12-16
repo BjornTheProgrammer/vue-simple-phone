@@ -5,8 +5,8 @@ import {
 	getCountryCodeForRegionCode,
 	getExample,
 } from 'awesome-phonenumber';
-import type { countries } from 'country-flag-icons';
-import { type Directive, ref, watch } from 'vue';
+import { countries } from 'country-flag-icons';
+import { type Directive, ref, watch, useSlots } from 'vue';
 import CountryFlag from './flags/CountryFlag.vue';
 
 const props = withDefaults(
@@ -27,10 +27,11 @@ const regionNames = new Intl.DisplayNames(props.language, { type: 'region' });
 const buttonDropdown = ref(false);
 const selectedRegion = ref(props.region);
 
+const model = defineModel<ParsedPhoneNumber>();
+
 let ayt = getAsYouType(props.region);
 if (props.value) ayt.reset(props.value);
-
-const model = defineModel<ParsedPhoneNumber>();
+model.value = ayt.getPhoneNumber();
 
 watch(selectedRegion, async (newRegion) => {
 	const number = ayt.number();
@@ -55,8 +56,14 @@ const vClickOutside: Directive = {
 	},
 };
 
+function isNumeric(str: string) {
+	if (typeof str != "string") return false // we only process strings!  
+	return !isNaN(str as unknown as number) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
+			!isNaN(parseFloat(str)) // ...and ensure strings of whitespace fail
+}
+
 const handleKeypress = (e: KeyboardEvent) => {
-	const isNumber = Number.isFinite(e.key as unknown as number) && e.key !== ' ';
+	const isNumber = isNumeric(e.key) && e.key !== ' ';
 
 	if (e.key === 'Delete' || e.key === 'Backspace') ayt.removeChar();
 	else if (isNumber) ayt.addChar(e.key);
@@ -75,11 +82,13 @@ const handleKeypress = (e: KeyboardEvent) => {
 
 	formattedNumber.value = phone.number?.national || ayt.number();
 };
+
+const slots = useSlots()
 </script>
 
 <template>
 	<div class="vue-simple-phone-container">
-		<label class="vue-simple-phone-label">
+		<label v-if="slots" class="vue-simple-phone-label">
 			<slot />
 		</label>
 		<div class="vue-simple-phone-input-container">

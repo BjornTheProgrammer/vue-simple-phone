@@ -33,6 +33,7 @@ export default defineConfig({
 		vue(),
 		dts({
 			outDir: 'dist/types',
+			rollupTypes: true,
 			tsconfigPath: './tsconfig.app.json',
 		}),
 	],
