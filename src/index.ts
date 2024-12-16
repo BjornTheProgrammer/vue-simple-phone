@@ -1,3 +1,3 @@
-import VueSimplePhone from './VueSimplePhone.vue'
+import VueSimplePhone from './VueSimplePhone.vue';
 
-export { VueSimplePhone }
+export { VueSimplePhone };

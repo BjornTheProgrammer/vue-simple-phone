@@ -1,11 +1,11 @@
 // .vitepress/theme/index.ts
-import type { Theme } from 'vitepress'
-import DefaultTheme from 'vitepress/theme'
-import { VueSimplePhone } from '../../../src'
+import type { Theme } from 'vitepress';
+import DefaultTheme from 'vitepress/theme';
+import { VueSimplePhone } from '../../../src';
 
 export default {
 	extends: DefaultTheme,
 	enhanceApp({ app }) {
-		app.component('VueSimplePhone', VueSimplePhone)
-	}
-} satisfies Theme
+		app.component('VueSimplePhone', VueSimplePhone);
+	},
+} satisfies Theme;
