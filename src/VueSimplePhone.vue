@@ -142,76 +142,49 @@ const slots = useSlots()
 	opacity: 0;
 }
 
+.vue-simple-phone-container * {
+	box-sizing: border-box;
+}
+
+.vue-simple-phone-container button {
+	all: unset;
+}
 
 .vue-simple-phone-label {
-	margin-bottom: 10px;
+	margin-bottom: 10px !important;
+	display: block !important;
 }
 
 .vue-simple-phone-container {
-	display: flex;
-	flex-direction: column;
-
-	text-align: left;
-
-	width: 100%;
+	display: flex !important;
+	flex-direction: column !important;
+	text-align: left !important;
+	width: 100% !important;
 }
 
 .vue-simple-phone-input-container {
-	background-color: #fff;
-	color: #000;
-
-	display: flex;
-
-	border-radius: 10px;
-
-	position: relative;
-}
-
-.vue-simple-phone-input {
-	display: flex;
-
-	width: 100%;
-
-	align-items: center;
-	justify-items: self-start;
-
-	padding-left: 10px;
-
-	font-size: 16px;
-}
-
-.vue-simple-phone-input::placeholder {
-	color: #0008;
-	opacity: 1;
-	/* Firefox */
-}
-
-.vue-simple-phone-input:focus {
-	outline: 2px solid #007BFF;
-	border-radius: 0px 10px 10px 0px;
-}
-
-.vue-simple-phone-selected-icon {
-	border-radius: 9999px;
-	overflow: hidden;
-}
-
-.vue-simple-phone-button-icon {
-	height: 16px;
-	width: 16px;
-
-	border-radius: 9999px;
+	background-color: #fff !important;
+	color: #000 !important;
+	display: flex !important;
+	border-radius: 10px !important;
+	position: relative !important;
+	width: 100% !important;
 }
 
 .vue-simple-phone-button {
-	display: flex;
-	justify-items: center;
-	align-items: center;
+	all: unset !important;
+	display: flex !important;
+	justify-content: center !important;
+	align-items: center !important;
+	padding: 12px !important;
+	border-right: solid 1px #0002 !important;
+	font-size: 16px !important;
+	cursor: pointer !important;
+	transition: background-color 0.25s !important;
+}
 
-	padding: 12px;
-	border-right: solid 1px;
-
-	font-size: 16px;
+.vue-simple-phone-button:hover {
+	background-color: rgba(0,0,0,0.05) !important;
 }
 
 .vue-simple-phone-button:focus,
@@ -220,47 +193,76 @@ const slots = useSlots()
 	border-radius: 10px 0px 0px 10px !important;
 }
 
-.vue-simple-phone-button-dropdown {
-	background: #fff;
-	position: absolute;
-	top: 52px;
+.vue-simple-phone-input {
+	all: unset !important;
+	display: flex !important;
+	width: 100% !important;
+	align-items: center !important;
+	justify-content: flex-start !important;
+	padding-left: 10px !important;
+	font-size: 16px !important;
+	flex-grow: 1 !important;
+}
 
-	border-radius: 10px;
-	z-index: 100;
+.vue-simple-phone-input::placeholder {
+	color: #0008 !important;
+	opacity: 1 !important;
+}
+
+.vue-simple-phone-input:focus {
+	outline: 2px solid #007BFF !important;
+	border-radius: 0px 10px 10px 0px !important;
+}
+
+.vue-simple-phone-button-icon {
+	height: 16px !important;
+	width: 16px !important;
+	border-radius: 9999px !important;
 }
 
 .vue-simple-phone-button-number {
-	padding-left: 10px;
+	padding-left: 10px !important;
 }
 
 .vue-simple-phone-button-dropdown-icon {
-	padding-left: 10px;
-	fill: #000;
-	width: 20px;
-	height: 20px;
+	padding-left: 10px !important;
+	fill: #000 !important;
+	width: 20px !important;
+	height: 20px !important;
+}
+
+.vue-simple-phone-button-dropdown {
+	background: #fff !important;
+	position: absolute !important;
+	top: 52px !important;
+	border-radius: 10px !important;
+	z-index: 100 !important;
+	box-shadow: 0 4px 6px rgba(0,0,0,0.1) !important;
 }
 
 .vue-simple-phone-button-dropdown-list {
 	padding: 0px !important;
-	margin: 10px 0px 10px 0px !important;
-	height: 200px;
-	overflow: scroll;
+	margin: 10px 0px !important;
+	height: 200px !important;
+	overflow: scroll !important;
+	list-style-type: none !important;
 }
 
 .vue-simple-phone-button-dropdown-item {
-	margin-top: 0px !important;
-	list-style-type: none;
+	margin: 0 !important;
+	list-style-type: none !important;
 }
 
 .vue-simple-phone-button-dropdown-item:hover {
-	background-color: rgba(0, 0, 0, 0.1);
+	background-color: rgba(0, 0, 0, 0.1) !important;
 }
 
 .vue-simple-phone-button-dropdown-item-button {
-	display: flex;
-	align-items: center;
-	width: 100%;
-	height: 100%;
-	padding: 5px 10px 5px 10px;
+	display: flex !important;
+	align-items: center !important;
+	width: 100% !important;
+	height: 100% !important;
+	padding: 5px 10px !important;
+	cursor: pointer !important;
 }
 </style>
