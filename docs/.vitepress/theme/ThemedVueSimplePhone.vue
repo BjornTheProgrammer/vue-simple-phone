@@ -1,4 +1,5 @@
 <script setup lang="ts">
+/// <reference types="vite/client" />
 import { VueSimplePhone } from '../../../src';
 import { ref, watch } from 'vue';
 
@@ -8,7 +9,11 @@ const props = defineProps<{
 
 const css = ref('');
 
-const moduleStrings = import.meta.glob(
+type GlobFunction = () => string;
+
+
+// @ts-ignore
+const imports = import.meta.glob(
 	'../../../src/themes/*.css',
 	{
 		query: '?inline',
@@ -16,13 +21,19 @@ const moduleStrings = import.meta.glob(
 	},
 );
 
+// @ts-ignore
+const cssThemes = new Map<string, string>(await Promise.all(
+	Object.entries(imports).map(async ([moduleString, func]) => {
+		return [moduleString, await func()]
+	})
+));
+
+
 watch(
 	() => props.theme,
 	async (newTheme, oldTheme) => {
 		if (newTheme !== oldTheme) {
-			css.value = (await moduleStrings[
-				`../../../src/themes/${newTheme}.css`
-			]()) as string;
+			css.value = cssThemes.get(`../../../src/themes/${newTheme}.css`) as string;
 		}
 	},
 	{ immediate: true },
@@ -39,5 +50,3 @@ watch(
 		</component>
 	</div>
 </template>
-
-<style scoped :src="url"></style>
