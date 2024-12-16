@@ -10,7 +10,7 @@ Vue Simple Phone is designed to be as easy as possible to use and to extend.
 ```vue
 <script setup>
 import { VueSimplePhone } from 'vue-simple-phone'
-import 'vue-simple-phone/default.css' // Include the default theme
+import 'vue-simple-phone/themes/light.css' // Include the default theme
 </script>
 
 <template>
@@ -18,4 +18,7 @@ import 'vue-simple-phone/default.css' // Include the default theme
 </template>
 ```
 
+<script setup>
+import '../../src/themes/light.css'
+</script>
 <VueSimplePhone style="padding-top: 10px;">Phone Number</VueSimplePhone>
