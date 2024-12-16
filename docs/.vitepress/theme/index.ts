@@ -7,7 +7,7 @@ import ThemedVueSimplePhone from './ThemedVueSimplePhone.vue';
 export default {
 	extends: DefaultTheme,
 	enhanceApp({ app }) {
-		app.component('ThemedVueSimplePhone', ThemedVueSimplePhone);
+		app.component('AllThemedVueSimplePhone', ThemedVueSimplePhone);
 		app.component('VueSimplePhone', VueSimplePhone);
 	},
 } satisfies Theme;

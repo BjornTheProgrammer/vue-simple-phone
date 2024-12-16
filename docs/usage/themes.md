@@ -4,10 +4,11 @@ Vue Simple Phone currently supports the following themes out of the box:
 
 ## `vue-simple-phone/themes/light.css`
 
-<VueSimplePhone />
+<!-- <VueSimplePhone />
 <style>
 	@import "../../src/themes/light.css"
-</style>
+</style> -->
 
-<ThemedVueSimplePhone />
+<AllThemedVueSimplePhone theme="light" />
+<AllThemedVueSimplePhone theme="dark" />
 
