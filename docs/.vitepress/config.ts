@@ -8,21 +8,29 @@ export default defineConfig({
 		// https://vitepress.dev/reference/default-theme-config
 		nav: [
 			{ text: 'Home', link: '/' },
-			{ text: 'Getting Started', link: '/getting-started' },
+			{ text: 'Getting Started', link: '/guide/getting-started' },
 		],
 
 		sidebar: [
 			{
-				text: 'Setup',
+				text: 'Guide',
 				items: [
-					{ text: 'Getting Started', link: '/getting-started' },
-					{ text: 'Runtime API Examples', link: '/api-examples' },
+					{ text: 'Getting Started', link: '/guide/getting-started' },
+					{ text: 'Binding', link: '/guide/binding' },
+				],
+			},
+			{
+				text: 'Usage',
+				items: [
+					{ text: 'Props', link: '/usage/props' },
+					{ text: 'Themes', link: '/usage/themes' },
+					{ text: 'Making a Theme', link: '/usage/making-a-theme' },
 				],
 			},
 		],
 
 		socialLinks: [
-			{ icon: 'github', link: 'https://github.com/vuejs/vitepress' },
+			{ icon: 'github', link: 'https://github.com/BjornTheProgrammer/vue-simple-phone' },
 		],
 	},
 });
