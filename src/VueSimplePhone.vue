@@ -1,22 +1,26 @@
 <script setup lang="ts">
-import { ref, Directive } from 'vue';
+import { ref, Directive, watch } from 'vue';
 import CountryFlag from './flags/CountryFlag.vue';
 import { countries } from 'country-flag-icons';
-import { getCountryCodeForRegionCode } from 'awesome-phonenumber';
+import { getCountryCodeForRegionCode, getAsYouType, getExample } from 'awesome-phonenumber';
 
 let regionNames = new Intl.DisplayNames(['en'], { type: 'region' });
 
 const buttonDropdown = ref(false);
 const selectedRegion = ref('US');
 
+let ayt = getAsYouType('US');
+
+watch(selectedRegion, async (newRegion) => {
+	ayt = getAsYouType(newRegion);
+})
+
+const formattedNumber = ref(ayt.number())
+
 const vClickOutside: Directive = {
 	beforeMount: (el, binding) => {
 		el.clickOutsideEvent = (event: MouseEvent) => {
-			// here I check that click was outside the el and his children
-			if (!(el == event.target || el.contains(event.target))) {
-				// and if it did, call method provided in attribute value
-				binding.value();
-			}
+			if (!(el == event.target || el.contains(event.target))) binding.value();
 		};
 
 		setTimeout(() => document.addEventListener("click", el.clickOutsideEvent));
@@ -24,6 +28,20 @@ const vClickOutside: Directive = {
 	unmounted: el => {
 		document.removeEventListener("click", el.clickOutsideEvent);
 	},
+}
+
+const handleKeypress = (e: KeyboardEvent) => {
+	const isNumber = isFinite(e.key as unknown as number) && e.key !== ' ';
+
+	if (e.key == 'Delete' || e.key == 'Backspace') ayt.removeChar();
+	else if (isNumber) ayt.addChar(e.key);
+
+	let phone = ayt.getPhoneNumber();
+	if (phone.possibility !== 'is-possible' && phone.possibility !== 'unknown' && phone.possibility !== 'too-short') ayt.removeChar();
+
+	phone = ayt.getPhoneNumber();
+
+	formattedNumber.value = phone.number?.national || ayt.number()
 }
 </script>
 
@@ -44,7 +62,7 @@ const vClickOutside: Directive = {
 						d="M201.4 374.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 306.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z" />
 				</svg>
 			</button>
-			<Transition>
+			<Transition name="vue-simple-phone">
 				<button v-if="buttonDropdown" class="vue-simple-phone-button-dropdown" v-click-outside="() => buttonDropdown = false">
 					<ul class="vue-simple-phone-button-dropdown-list">
 						<li class="vue-simple-phone-button-dropdown-item" v-for="country in countries">
@@ -61,22 +79,26 @@ const vClickOutside: Directive = {
 					</ul>
 				</button>
 			</Transition>
-			<input type="tel" class="vue-simple-phone-input" placeholder="123-456-7890" />
+			<input 
+				@keydown.prevent="handleKeypress"
+				:value="formattedNumber"
+				type="tel"
+				class="vue-simple-phone-input"
+				:placeholder="getExample(selectedRegion).number?.national || ''" />
 		</div>
 	</div>
 
 </template>
 
 <style>
-/* we will explain what these classes do next! */
-.v-enter-active,
-.v-leave-active {
-  transition: opacity 0.14s ease;
+.vue-simple-phone-enter-active,
+.vue-simple-phone-leave-active {
+	transition: opacity 0.14s ease;
 }
 
-.v-enter-from,
-.v-leave-to {
-  opacity: 0;
+.vue-simple-phone-enter-from,
+.vue-simple-phone-leave-to {
+	opacity: 0;
 }
 
 
