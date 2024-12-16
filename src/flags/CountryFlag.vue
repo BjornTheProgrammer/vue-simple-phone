@@ -22,12 +22,17 @@ const moduleStrings = import.meta.glob(
 	},
 );
 
-watch(() => props.flag, async (newFlag, oldFlag) => {
-	if (newFlag !== oldFlag) {
-		svg.value = await moduleStrings[`../../node_modules/country-flag-icons/1x1/${newFlag}.svg`]()
-
-	}
-}, { immediate: true });
+watch(
+	() => props.flag,
+	async (newFlag, oldFlag) => {
+		if (newFlag !== oldFlag) {
+			svg.value = (await moduleStrings[
+				`../../node_modules/country-flag-icons/1x1/${newFlag}.svg`
+			]()) as string;
+		}
+	},
+	{ immediate: true },
+);
 </script>
 
 <template>

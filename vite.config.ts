@@ -1,6 +1,7 @@
 import { resolve } from 'node:path';
 import vue from '@vitejs/plugin-vue';
 import { defineConfig } from 'vite';
+import dts from 'vite-plugin-dts';
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -15,16 +16,24 @@ export default defineConfig({
 		rollupOptions: {
 			// make sure to externalize deps that shouldn't be bundled
 			// into your library
-			external: ['vue'],
+			external: ['vue', 'awesome-phonenumber', ''],
 			output: {
 				// Provide global variables to use in the UMD build
 				// for externalized deps
 				globals: {
 					vue: 'Vue',
+					'awesome-phonenumber': 'awesomePhonenumber',
+					'country-flag-icons': 'countryFlagIcons',
 				},
 			},
 		},
 	},
 
-	plugins: [vue()],
+	plugins: [
+		vue(),
+		dts({
+			outDir: 'dist/types',
+			tsconfigPath: './tsconfig.app.json',
+		}),
+	],
 });
