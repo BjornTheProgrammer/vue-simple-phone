@@ -4,6 +4,7 @@ import {
 	getAsYouType,
 	getCountryCodeForRegionCode,
 	getExample,
+	getSupportedRegionCodes,
 } from 'awesome-phonenumber';
 import { countries as countriesFromFlagIcons } from 'country-flag-icons';
 import { type Directive, ref, useSlots, watch } from 'vue';
@@ -143,6 +144,7 @@ const handleToggle = () => {
 	else handleOpen();
 };
 
+const supportExamples = getSupportedRegionCodes();
 const slots = useSlots();
 </script>
 
@@ -196,7 +198,7 @@ const slots = useSlots();
 				:value="formattedNumber"
 				type="tel"
 				class="vue-simple-phone-input"
-				:placeholder="getExample(selectedRegion).number?.national || ''"
+				:placeholder="supportExamples.includes(selectedRegion) ? getExample(selectedRegion).number?.national || '' : ''"
 				:disabled="disabled"
 			/>
 		</div>
