@@ -1,6 +1,6 @@
 # Vue Simple Phone
 
-A simple and extendable phone number input component for vue
+A simple and extendable phone number input component for Vue
 
 ## Installation
 
@@ -26,7 +26,7 @@ Extensive documentation and a demo can be found [here](https://bjorntheprogramme
 
 Build out your own theme with our [theme builder](https://bjorntheprogrammer.github.io/vue-simple-phone/usage/theme-builder)!
 
-## A quick peak
+## A quick peek
 
 ![Example of the different themes available to Vue Simple Phone](media/examples.png)
 
