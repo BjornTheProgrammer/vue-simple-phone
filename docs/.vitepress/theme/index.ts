@@ -2,7 +2,8 @@
 import type { Theme } from 'vitepress';
 import DefaultTheme from 'vitepress/theme';
 import { VueSimplePhone } from '../../../src';
-import ThemedVueSimplePhone from './ThemedVueSimplePhone.vue';
+import ThemedVueSimplePhone from './components/ThemedVueSimplePhone.vue';
+import './style.css'
 
 export default {
 	extends: DefaultTheme,

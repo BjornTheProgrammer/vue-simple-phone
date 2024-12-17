@@ -1,6 +1,6 @@
 <script setup lang="ts">
 /// <reference types="vite/client" />
-import { VueSimplePhone } from '../../../src';
+import { VueSimplePhone } from '../../../../src';
 import { ref, watch } from 'vue';
 
 const props = defineProps<{
@@ -14,7 +14,7 @@ type GlobFunction = () => string;
 
 // @ts-ignore
 const imports = import.meta.glob(
-	'../../../src/themes/*.css',
+	'../../../../src/themes/*.css',
 	{
 		query: '?inline',
 		import: 'default',
@@ -33,7 +33,7 @@ watch(
 	() => props.theme,
 	async (newTheme, oldTheme) => {
 		if (newTheme !== oldTheme) {
-			css.value = cssThemes.get(`../../../src/themes/${newTheme}.css`) as string;
+			css.value = cssThemes.get(`../../../../src/themes/${newTheme}.css`) as string;
 		}
 	},
 	{ immediate: true },
