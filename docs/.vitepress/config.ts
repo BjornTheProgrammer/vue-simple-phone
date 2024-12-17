@@ -5,7 +5,7 @@ export default defineConfig({
 	title: 'Vue Simple Phone',
 	description: 'A simple vue component for phone number inputs',
 	base: '/vue-simple-phone/',
-	head: [['link', { rel: 'icon', href: '/favicon.ico' }]],
+	head: [['link', { rel: 'icon', href: '/vue-simple-phone/favicon.ico' }]],
 	themeConfig: {
 		// https://vitepress.dev/reference/default-theme-config
 		nav: [
