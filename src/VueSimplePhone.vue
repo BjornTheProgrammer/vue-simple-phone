@@ -6,7 +6,7 @@ import {
 	getExample,
 } from 'awesome-phonenumber';
 import { countries as countriesFromFlagIcons } from 'country-flag-icons';
-import { type Directive, defineEmits, ref, useSlots, watch } from 'vue';
+import { type Directive, ref, useSlots, watch } from 'vue';
 import CountryFlag from './flags/CountryFlag.vue';
 
 const props = withDefaults(

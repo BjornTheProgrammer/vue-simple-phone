@@ -6,6 +6,9 @@ hero:
   name: "Vue Simple Phone"
   text: "Vue component for phone number inputs"
   tagline: Phone numbers made easy
+  image:
+    src: /images/logo.png
+    alt: Vue Simple Phone
   actions:
     - theme: brand
       text: Getting Started
