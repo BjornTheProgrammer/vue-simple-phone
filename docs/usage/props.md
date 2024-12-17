@@ -30,6 +30,27 @@ The list of countries to display in the dropdown
 * Type: `String[]`
 * Default: [`country-flag-icons`](https://www.npmjs.com/package/country-flag-icons)'s list of countries
 
+## disabled
+
+Whether the input can be interacted with or not.
+
+* Type: `Boolean`
+* Default: `true`
+
+## disabled
+
+Whether the input can be interacted with or not.
+
+* Type: `Boolean`
+* Default: `true`
+
+## opened
+
+Whether or not the dropdown is open
+
+* Type: `Boolean`
+* Default: `false`
+
 ## Missing Something?
 
 <script setup>
