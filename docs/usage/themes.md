@@ -9,7 +9,7 @@ Vue Simple Phone currently supports the following themes out of the box:
 </Suspense>
 
 
-## [`vue-simple-phone/themes/light.css`](https://github.com/BjornTheProgrammer/vue-simple-phone/blob/main/src/themes/dark.css)
+## [`vue-simple-phone/themes/dark.css`](https://github.com/BjornTheProgrammer/vue-simple-phone/blob/main/src/themes/dark.css)
 
 <Suspense>
 	<ThemedVueSimplePhone theme="dark" />

@@ -99,7 +99,7 @@ const slots = useSlots();
 
 <template>
 	<div class="vue-simple-phone-container">
-		<label v-if="slots.content" class="vue-simple-phone-label">
+		<label v-if="slots.default" class="vue-simple-phone-label">
 			<slot />
 		</label>
 		<div class="vue-simple-phone-input-container">

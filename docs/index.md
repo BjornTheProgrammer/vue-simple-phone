@@ -12,14 +12,14 @@ hero:
       link: /guide/getting-started
     - theme: alt
       text: Examples
-      link: /api-examples
+      link: /usage/themes
 
 features:
   - title: Customizable
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+    details: Vue Simple Phone has many differnent props available for easy customization.
   - title: Extendable
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+    details: Designed to be modifable with custom themes, with just css.
   - title: Painless
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+    details: Sensible defaults on desktop and for mobile
 ---
 
