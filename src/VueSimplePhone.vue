@@ -14,20 +14,24 @@ const props = withDefaults(
 		region?: (typeof countriesFromFlagIcons)[number];
 		language?: Intl.LocalesArgument;
 		value?: string;
-		countries?: string[]
+		countries?: string[];
+		disabled?: boolean;
+		opened?: boolean;
 	}>(),
 	{
 		region: 'US',
 		// @ts-ignore
 		language: ['en'] as Intl.LocalesArgument,
 		// @ts-ignore
-		countries: countriesFromFlagIcons
+		countries: countriesFromFlagIcons,
+		disabled: false,
+		opened: false,
 	},
 );
 
 const regionNames = new Intl.DisplayNames(props.language, { type: 'region' });
 
-const buttonDropdown = ref(false);
+const buttonDropdown = ref(props.opened);
 const selectedRegion = ref(props.region);
 
 const model = defineModel<ParsedPhoneNumber>();
@@ -66,6 +70,8 @@ function isNumeric(str: string) {
 }
 
 const handleKeypress = (e: KeyboardEvent) => {
+	if (props.disabled) return;
+
 	const isNumber = isNumeric(e.key) && e.key !== ' ';
 
 	if (e.key === 'Delete' || e.key === 'Backspace') ayt.removeChar();
@@ -97,12 +103,16 @@ const slots = useSlots()
 		<div class="vue-simple-phone-input-container">
 			<Transition name="vue-simple-phone">
 				<div v-if="buttonDropdown" class="vue-simple-phone-button-dropdown-wrapper">
-					<button class="vue-simple-phone-button-dropdown" v-click-outside="() => buttonDropdown = false">
+					<button
+						class="vue-simple-phone-button-dropdown"
+						v-click-outside="() => (props.opened !== true) ? buttonDropdown = false : {}"
+						:disabled="disabled"
+					>
 						<ul class="vue-simple-phone-button-dropdown-list">
 							<li class="vue-simple-phone-button-dropdown-item" v-for="country in countries">
 								<button class="vue-simple-phone-button-dropdown-item-button" @click="() => {
 									selectedRegion = country;
-									buttonDropdown = false;
+									(props.opened !== true) ? buttonDropdown = false : {};
 								}">
 									<CountryFlag :flag="country" class="vue-simple-phone-button-icon" />
 									<div class="vue-simple-phone-button-number">
@@ -114,7 +124,12 @@ const slots = useSlots()
 					</button>
 				</div>
 			</Transition>
-			<button type="button" class="vue-simple-phone-button" @click="buttonDropdown = !buttonDropdown">
+			<button
+				type="button"
+				class="vue-simple-phone-button"
+				@click="(props.opened !== true) ? buttonDropdown = !buttonDropdown : {};"
+				:disabled="disabled"
+			>
 				<CountryFlag :flag="selectedRegion" class="vue-simple-phone-button-icon" />
 				<div class="vue-simple-phone-button-number">
 					+{{ getCountryCodeForRegionCode(selectedRegion) }}
@@ -130,7 +145,9 @@ const slots = useSlots()
 				:value="formattedNumber"
 				type="tel"
 				class="vue-simple-phone-input"
-				:placeholder="getExample(selectedRegion).number?.national || ''" />
+				:placeholder="getExample(selectedRegion).number?.national || ''"
+				:disabled="disabled"
+			/>
 		</div>
 	</div>
 </template>

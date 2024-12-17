@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineModel, ref, type Directive } from 'vue';
+import { ref, type Directive } from 'vue';
 import { ColorPicker } from 'vue-accessible-color-picker'
 
 const model = defineModel<string>({

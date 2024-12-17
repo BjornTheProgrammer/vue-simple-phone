@@ -26,6 +26,6 @@ const phone = ref();
 </script>
 
 <VueSimplePhone v-model="phone" :value="getExample('US').number?.national || ''"/>
-<pre>
+<pre class="pt-3">
 {{ phone }}
 </pre>
