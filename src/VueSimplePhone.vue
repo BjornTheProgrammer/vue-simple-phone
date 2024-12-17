@@ -6,7 +6,7 @@ import {
 	getExample,
 } from 'awesome-phonenumber';
 import { countries as countriesFromFlagIcons } from 'country-flag-icons';
-import { type Directive, ref, useSlots, watch, defineEmits } from 'vue';
+import { type Directive, defineEmits, ref, useSlots, watch } from 'vue';
 import CountryFlag from './flags/CountryFlag.vue';
 
 const props = withDefaults(
@@ -34,29 +34,38 @@ const emit = defineEmits<{
 }>();
 
 let regionNames = new Intl.DisplayNames(props.language, { type: 'region' });
-let regionNamesKey = ref(0);
+const regionNamesKey = ref(0);
 
 const buttonDropdown = ref(props.opened ?? false);
 const selectedRegion = ref(props.region);
 
-watch(() => props.language, (newValue, oldValue) => {
-	if (oldValue !== newValue) {
-		regionNames = new Intl.DisplayNames(newValue, { type: 'region' });
-		regionNamesKey.value++;
-	}
-});
+watch(
+	() => props.language,
+	(newValue, oldValue) => {
+		if (oldValue !== newValue) {
+			regionNames = new Intl.DisplayNames(newValue, { type: 'region' });
+			regionNamesKey.value++;
+		}
+	},
+);
 
-watch(() => props.region, (newValue, oldValue) => {
-	if (oldValue !== newValue) {
-		selectedRegion.value = newValue;
-	}
-});
+watch(
+	() => props.region,
+	(newValue, oldValue) => {
+		if (oldValue !== newValue) {
+			selectedRegion.value = newValue;
+		}
+	},
+);
 
-watch(() => props.opened, (newValue, oldValue) => {
-	if (oldValue !== newValue) {
-		buttonDropdown.value = newValue ?? false;
-	}
-});
+watch(
+	() => props.opened,
+	(newValue, oldValue) => {
+		if (oldValue !== newValue) {
+			buttonDropdown.value = newValue ?? false;
+		}
+	},
+);
 
 const model = defineModel<ParsedPhoneNumber>();
 
@@ -120,18 +129,18 @@ const handleKeypress = (e: KeyboardEvent) => {
 
 const handleClose = () => {
 	if (props.opened === undefined) buttonDropdown.value = false;
-	emit('close')
-}
+	emit('close');
+};
 
 const handleOpen = () => {
 	if (props.opened === undefined) buttonDropdown.value = true;
-	emit('open')
-}
+	emit('open');
+};
 
 const handleToggle = () => {
-	if (buttonDropdown.value == true) handleClose();
+	if (buttonDropdown.value === true) handleClose();
 	else handleOpen();
-}
+};
 
 const slots = useSlots();
 </script>
