@@ -22,40 +22,40 @@ const { isDark } = useData()
 
 <VueSimplePhone />
 
-<div :class="(isDark ? `bg-neutral-900`: `bg-neutral-100`) + ' rounded p-5 mt-5'">
-	<div class="flex items-center space-x-1">
-		<label>Text Color:</label>
+<div :class="(isDark ? `bg-neutral-900`: `bg-neutral-100`) + ' rounded p-5 mt-5 grid grid-cols-3 gap-4'">
+	<div class="flex flex-col space-x-1">
+		<label>Text Color</label>
 		<ColorInput v-model="textColor" />
 	</div>
-	<div class="flex items-center space-x-1">
-		<label>Placeholder Color:</label>
+	<div class="flex flex-col space-x-1">
+		<label>Placeholder Color</label>
 		<ColorInput v-model="placeholderColor" />
 	</div>
-	<div class="flex items-center space-x-1">
-		<label>Background Color:</label>
+	<div class="flex flex-col space-x-1">
+		<label>Background Color</label>
 		<ColorInput v-model="backgroundColor" />
 	</div>
-	<div class="flex items-center space-x-1">
-		<label>Border Color:</label>
+	<div class="flex flex-col space-x-1">
+		<label>Border Color</label>
 		<ColorInput v-model="borderColor" />
 	</div>
-	<div class="flex items-center space-x-1">
+	<div class="flex flex-col space-x-1">
+		<label>Rounded Flags</label>
 		<label class="inline-flex items-center cursor-pointer">
-			<span class="mr-2">Rounded Flags: </span>
 			<input type="checkbox" v-model="roundedFlags" class="sr-only peer">
 			<div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
 		</label>
 	</div>
-	<div class="flex items-center space-x-1">
-		<label class="mr-2">Dropdown Open Speed:</label>
+	<div class="flex flex-col space-x-1">
+		<label>Dropdown Open Speed</label>
 		<input v-model="transitionTime" type="number" aria-describedby="helper-text-explanation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
 	</div>
-	<div class="flex items-center space-x-1">
-		<label for="counter-input">Input Border Radius:</label>
+	<div class="flex flex-col space-x-1">
+		<label>Input Border Radius</label>
 		<NumberInput v-model="inputBorderRadius" />
 	</div>
-	<div class="flex items-center space-x-1">
-		<label for="counter-input">Dropdown Border Radius:</label>
+	<div class="flex flex-col space-x-1">
+		<label>Dropdown Border Radius</label>
 		<NumberInput v-model="dropdownBorderRadius" />
 	</div>
 </div>
