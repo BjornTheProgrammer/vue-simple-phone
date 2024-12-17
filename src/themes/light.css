@@ -1,6 +1,7 @@
 .vue-simple-phone-enter-active,
 .vue-simple-phone-leave-active {
 	transition: opacity 0.14s ease;
+	z-index: 50;
 }
 
 .vue-simple-phone-enter-from,

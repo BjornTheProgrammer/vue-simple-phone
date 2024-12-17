@@ -95,6 +95,25 @@ const slots = useSlots()
 			<slot />
 		</label>
 		<div class="vue-simple-phone-input-container">
+			<Transition name="vue-simple-phone">
+				<div v-if="buttonDropdown" class="vue-simple-phone-button-dropdown-wrapper">
+					<button class="vue-simple-phone-button-dropdown" v-click-outside="() => buttonDropdown = false">
+						<ul class="vue-simple-phone-button-dropdown-list">
+							<li class="vue-simple-phone-button-dropdown-item" v-for="country in countries">
+								<button class="vue-simple-phone-button-dropdown-item-button" @click="() => {
+									selectedRegion = country;
+									buttonDropdown = false;
+								}">
+									<CountryFlag :flag="country" class="vue-simple-phone-button-icon" />
+									<div class="vue-simple-phone-button-number">
+										{{ regionNames.of(country) }} (+{{ getCountryCodeForRegionCode(country) }})
+									</div>
+								</button>
+							</li>
+						</ul>
+					</button>
+				</div>
+			</Transition>
 			<button type="button" class="vue-simple-phone-button" @click="buttonDropdown = !buttonDropdown">
 				<CountryFlag :flag="selectedRegion" class="vue-simple-phone-button-icon" />
 				<div class="vue-simple-phone-button-number">
@@ -106,23 +125,6 @@ const slots = useSlots()
 						d="M201.4 374.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 306.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z" />
 				</svg>
 			</button>
-			<Transition name="vue-simple-phone">
-				<button v-if="buttonDropdown" class="vue-simple-phone-button-dropdown" v-click-outside="() => buttonDropdown = false">
-					<ul class="vue-simple-phone-button-dropdown-list">
-						<li class="vue-simple-phone-button-dropdown-item" v-for="country in countries">
-							<button class="vue-simple-phone-button-dropdown-item-button" @click="() => {
-								selectedRegion = country;
-								buttonDropdown = false;
-							}">
-								<CountryFlag :flag="country" class="vue-simple-phone-button-icon" />
-								<div class="vue-simple-phone-button-number">
-									{{ regionNames.of(country) }} (+{{ getCountryCodeForRegionCode(country) }})
-								</div>
-							</button>
-						</li>
-					</ul>
-				</button>
-			</Transition>
 			<input 
 				@keydown.prevent="handleKeypress"
 				:value="formattedNumber"
@@ -131,5 +133,4 @@ const slots = useSlots()
 				:placeholder="getExample(selectedRegion).number?.national || ''" />
 		</div>
 	</div>
-
 </template>
