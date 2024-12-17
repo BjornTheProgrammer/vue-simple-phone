@@ -1,6 +1,7 @@
 {
 	"name": "vue-simple-phone",
-	"private": true,
+	"private": false,
+	"license": "MIT",
 	"version": "1.0.0",
 	"type": "module",
 	"files": ["dist"],
