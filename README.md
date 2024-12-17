@@ -28,5 +28,5 @@ Build out your own theme with our [theme builder](https://bjorntheprogrammer.git
 
 ## A quick peek
 
-![Example of the different themes available to Vue Simple Phone](media/examples.png)
+![Example of the different themes available to Vue Simple Phone](https://bjorntheprogrammer.github.io/vue-simple-phone/images/examples.png)
 
