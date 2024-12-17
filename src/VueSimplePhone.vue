@@ -6,7 +6,7 @@ import {
 	getExample,
 } from 'awesome-phonenumber';
 import { countries as countriesFromFlagIcons } from 'country-flag-icons';
-import { type Directive, ref, useSlots, watch } from 'vue';
+import { type Directive, ref, useSlots, watch, defineEmits } from 'vue';
 import CountryFlag from './flags/CountryFlag.vue';
 
 const props = withDefaults(
@@ -25,14 +25,38 @@ const props = withDefaults(
 		// @ts-ignore
 		countries: countriesFromFlagIcons,
 		disabled: false,
-		opened: false,
 	},
 );
 
-const regionNames = new Intl.DisplayNames(props.language, { type: 'region' });
+const emit = defineEmits<{
+	open: [];
+	close: [];
+}>();
 
-const buttonDropdown = ref(props.opened);
+let regionNames = new Intl.DisplayNames(props.language, { type: 'region' });
+let regionNamesKey = ref(0);
+
+const buttonDropdown = ref(props.opened ?? false);
 const selectedRegion = ref(props.region);
+
+watch(() => props.language, (newValue, oldValue) => {
+	if (oldValue !== newValue) {
+		regionNames = new Intl.DisplayNames(newValue, { type: 'region' });
+		regionNamesKey.value++;
+	}
+});
+
+watch(() => props.region, (newValue, oldValue) => {
+	if (oldValue !== newValue) {
+		selectedRegion.value = newValue;
+	}
+});
+
+watch(() => props.opened, (newValue, oldValue) => {
+	if (oldValue !== newValue) {
+		buttonDropdown.value = newValue ?? false;
+	}
+});
 
 const model = defineModel<ParsedPhoneNumber>();
 
@@ -94,6 +118,21 @@ const handleKeypress = (e: KeyboardEvent) => {
 	formattedNumber.value = phone.number?.national || ayt.number();
 };
 
+const handleClose = () => {
+	if (props.opened === undefined) buttonDropdown.value = false;
+	emit('close')
+}
+
+const handleOpen = () => {
+	if (props.opened === undefined) buttonDropdown.value = true;
+	emit('open')
+}
+
+const handleToggle = () => {
+	if (buttonDropdown.value == true) handleClose();
+	else handleOpen();
+}
+
 const slots = useSlots();
 </script>
 
@@ -107,17 +146,17 @@ const slots = useSlots();
 				<div v-if="buttonDropdown" class="vue-simple-phone-button-dropdown-wrapper">
 					<button
 						class="vue-simple-phone-button-dropdown"
-						v-click-outside="() => (props.opened !== true) ? buttonDropdown = false : {}"
+						v-click-outside="handleClose"
 						:disabled="disabled"
 					>
 						<ul class="vue-simple-phone-button-dropdown-list">
 							<li class="vue-simple-phone-button-dropdown-item" v-for="country in countries">
 								<button class="vue-simple-phone-button-dropdown-item-button" @click="() => {
 									selectedRegion = country;
-									(props.opened !== true) ? buttonDropdown = false : {};
+									handleClose()
 								}">
 									<CountryFlag :flag="country" class="vue-simple-phone-button-icon" />
-									<div class="vue-simple-phone-button-number">
+									<div class="vue-simple-phone-button-number" :key="regionNamesKey">
 										{{ regionNames.of(country) }} (+{{ getCountryCodeForRegionCode(country) }})
 									</div>
 								</button>
@@ -129,7 +168,7 @@ const slots = useSlots();
 			<button
 				type="button"
 				class="vue-simple-phone-button"
-				@click="(props.opened !== true) ? buttonDropdown = !buttonDropdown : {};"
+				@click="handleToggle"
 				:disabled="disabled"
 			>
 				<CountryFlag :flag="selectedRegion" class="vue-simple-phone-button-icon" />

@@ -25,6 +25,7 @@ export default defineConfig({
 				text: 'Usage',
 				items: [
 					{ text: 'Props', link: '/usage/props' },
+					{ text: 'Events', link: '/usage/events' },
 					{ text: 'Slots', link: '/usage/slot' },
 					{ text: 'Themes', link: '/usage/themes' },
 					{ text: 'Making a Theme', link: '/usage/making-a-theme' },
