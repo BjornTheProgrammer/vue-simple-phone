@@ -30,6 +30,7 @@ export default defineConfig({
 					{ text: 'Themes', link: '/usage/themes' },
 					{ text: 'Making a Theme', link: '/usage/making-a-theme' },
 					{ text: 'Theme Builder', link: '/usage/theme-builder' },
+					{ text: 'Additional Exports', link: '/usage/additional-exports' },
 				],
 			},
 		],

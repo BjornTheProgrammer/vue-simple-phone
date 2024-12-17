@@ -25,6 +25,7 @@ const props = withDefaults(
 		// @ts-ignore
 		countries: countriesFromFlagIcons,
 		disabled: false,
+		opened: undefined,
 	},
 );
 
@@ -36,7 +37,7 @@ const emit = defineEmits<{
 let regionNames = new Intl.DisplayNames(props.language, { type: 'region' });
 const regionNamesKey = ref(0);
 
-const buttonDropdown = ref(props.opened ?? false);
+const buttonDropdown = ref(props.opened);
 const selectedRegion = ref(props.region);
 
 watch(
