@@ -38,4 +38,4 @@ import { useData } from 'vitepress'
 const { site, theme, page, frontmatter } = useData()
 </script>
 
-Create an <a :href="theme.socialLinks.find(social => social.icon === 'github').link" target="_blank" rel="noreferrer">`issue`</a> on our GitHub! We very well may be able to add your feature.
+Create an <a :href="`${theme.socialLinks.find(social => social.icon === 'github').link}/issues`" target="_blank" rel="noreferrer">`issue`</a> on our GitHub! We very well may be able to add your feature.
