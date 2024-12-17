@@ -6,7 +6,7 @@ import {
 	getExample,
 } from 'awesome-phonenumber';
 import { countries as countriesFromFlagIcons } from 'country-flag-icons';
-import { type Directive, ref, watch, useSlots } from 'vue';
+import { type Directive, ref, useSlots, watch } from 'vue';
 import CountryFlag from './flags/CountryFlag.vue';
 
 const props = withDefaults(
@@ -64,9 +64,11 @@ const vClickOutside: Directive = {
 };
 
 function isNumeric(str: string) {
-	if (typeof str != "string") return false // we only process strings!  
-	return !isNaN(str as unknown as number) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
-			!isNaN(parseFloat(str)) // ...and ensure strings of whitespace fail
+	if (typeof str !== 'string') return false; // we only process strings!
+	return (
+		!Number.isNaN(str as unknown as number) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
+		!Number.isNaN(Number.parseFloat(str))
+	); // ...and ensure strings of whitespace fail
 }
 
 const handleKeypress = (e: KeyboardEvent) => {
@@ -92,7 +94,7 @@ const handleKeypress = (e: KeyboardEvent) => {
 	formattedNumber.value = phone.number?.national || ayt.number();
 };
 
-const slots = useSlots()
+const slots = useSlots();
 </script>
 
 <template>

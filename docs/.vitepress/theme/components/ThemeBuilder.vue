@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
-import { useData } from 'vitepress'
+import { useData } from 'vitepress';
+import { computed, ref } from 'vue';
 
 const textColor = ref('#000000');
 const placeholderColor = ref('#00000088');
@@ -12,8 +12,8 @@ const roundedFlags = ref(true);
 const transitionTime = ref(0.14);
 
 const flagsBorderRadius = computed(() => {
-	return roundedFlags.value ? '9999px' : '0px'
-})
+	return roundedFlags.value ? '9999px' : '0px';
+});
 
 const cssCode = computed(() => {
 	return `.vue-simple-phone-enter-active,
@@ -151,10 +151,10 @@ const cssCode = computed(() => {
 	padding: 5px 10px !important;
 	cursor: pointer !important;
 }
-`
-})
+`;
+});
 
-const { isDark } = useData()
+const { isDark } = useData();
 
 const copyCode = (e: MouseEvent) => {
 	const target = e.target as HTMLButtonElement;
@@ -168,7 +168,7 @@ const copyCode = (e: MouseEvent) => {
 	} catch (error) {
 		console.log('failed:', error);
 	}
-}
+};
 </script>
 
 <template>

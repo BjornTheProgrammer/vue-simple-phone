@@ -31,7 +31,10 @@ export default defineConfig({
 		],
 
 		socialLinks: [
-			{ icon: 'github', link: 'https://github.com/BjornTheProgrammer/vue-simple-phone' },
+			{
+				icon: 'github',
+				link: 'https://github.com/BjornTheProgrammer/vue-simple-phone',
+			},
 		],
 	},
 });

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref, type Directive } from 'vue';
-import { ColorPicker } from 'vue-accessible-color-picker'
+import { type Directive, ref } from 'vue';
+import { ColorPicker } from 'vue-accessible-color-picker';
 
 const model = defineModel<string>({
 	default: '#00000000',

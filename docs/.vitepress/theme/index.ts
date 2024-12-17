@@ -2,11 +2,11 @@
 import type { Theme } from 'vitepress';
 import DefaultTheme from 'vitepress/theme';
 import { VueSimplePhone } from '../../../src';
-import ThemedVueSimplePhone from './components/ThemedVueSimplePhone.vue';
-import NumberInput from './components/NumberInput.vue';
 import ColorInput from './components/ColorInput.vue';
+import NumberInput from './components/NumberInput.vue';
 import ThemeBuilder from './components/ThemeBuilder.vue';
-import './style.css'
+import ThemedVueSimplePhone from './components/ThemedVueSimplePhone.vue';
+import './style.css';
 
 export default {
 	extends: DefaultTheme,

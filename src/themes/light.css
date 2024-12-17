@@ -52,12 +52,12 @@
 }
 
 .vue-simple-phone-button:hover {
-	background-color: rgba(0,0,0,0.05) !important;
+	background-color: rgba(0, 0, 0, 0.05) !important;
 }
 
 .vue-simple-phone-button:focus,
 .vue-simple-phone-button:focus:not(:focus-visible) {
-	outline: 2px solid #007BFF !important;
+	outline: 2px solid #007bff !important;
 	border-radius: 10px 0px 0px 10px !important;
 }
 
@@ -78,7 +78,7 @@
 }
 
 .vue-simple-phone-input:focus {
-	outline: 2px solid #007BFF !important;
+	outline: 2px solid #007bff !important;
 	border-radius: 0px 10px 10px 0px !important;
 }
 
@@ -105,7 +105,7 @@
 	top: 52px !important;
 	border-radius: 10px !important;
 	z-index: 100 !important;
-	box-shadow: 0 4px 6px rgba(0,0,0,0.1) !important;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
 }
 
 .vue-simple-phone-button-dropdown-list {
