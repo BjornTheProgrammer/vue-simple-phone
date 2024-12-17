@@ -5,7 +5,8 @@ import { computed, ref } from 'vue';
 const textColor = ref('#000000');
 const placeholderColor = ref('#00000088');
 const backgroundColor = ref('#FFFFFF');
-const borderColor = ref('#FFFFFF');
+const borderColor = ref('#00000022');
+const outlineColor = ref('#007BFF');
 const inputBorderRadius = ref(10);
 const dropdownBorderRadius = ref(10);
 const roundedFlags = ref(true);
@@ -55,6 +56,7 @@ const cssCode = computed(() => {
 	position: relative !important;
 	width: 100% !important;
 	box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+	border: solid 1px ${borderColor.value} !important;
 }
 
 .vue-simple-phone-button {
@@ -63,7 +65,7 @@ const cssCode = computed(() => {
 	justify-content: center !important;
 	align-items: center !important;
 	padding: 12px !important;
-	border-right: solid 1px #0002 !important;
+	border-right: solid 1px ${borderColor.value} !important;
 	font-size: 16px !important;
 	cursor: pointer !important;
 	transition: background-color 0.25s !important;
@@ -75,7 +77,7 @@ const cssCode = computed(() => {
 
 .vue-simple-phone-button:focus,
 .vue-simple-phone-button:focus:not(:focus-visible) {
-	outline: 2px solid #007BFF !important;
+	outline: 2px solid ${outlineColor.value} !important;
 	border-radius: ${inputBorderRadius.value}px 0px 0px ${inputBorderRadius.value}px !important;
 }
 
@@ -96,7 +98,7 @@ const cssCode = computed(() => {
 }
 
 .vue-simple-phone-input:focus {
-	outline: 2px solid #007BFF !important;
+	outline: 2px solid ${outlineColor.value} !important;
 	border-radius: 0px ${inputBorderRadius.value}px ${inputBorderRadius.value}px 0px !important;
 }
 
@@ -124,6 +126,7 @@ const cssCode = computed(() => {
 	border-radius: ${dropdownBorderRadius.value}px !important;
 	z-index: 100 !important;
 	box-shadow: 0 4px 6px rgba(0,0,0,0.1) !important;
+	border: solid 1px ${borderColor.value} !important;
 }
 
 .vue-simple-phone-button-dropdown-list {
@@ -188,6 +191,10 @@ const copyCode = (e: MouseEvent) => {
 		<div class="flex flex-col space-x-1">
 			<label>Border Color</label>
 			<ColorInput v-model="borderColor" />
+		</div>
+		<div class="flex flex-col space-x-1">
+			<label>Outline Color</label>
+			<ColorInput v-model="outlineColor" />
 		</div>
 		<div class="flex flex-col space-x-1">
 			<label>Rounded Flags</label>

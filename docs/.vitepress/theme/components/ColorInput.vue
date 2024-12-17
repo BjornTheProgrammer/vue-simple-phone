@@ -30,7 +30,7 @@ const vClickOutside: Directive = {
 			@click="() => popupOpen = true"
 		>	
 		</div>
-		<div v-else v-click-outside="() => popupOpen = false" class="bg-white absolute w-max z-50">
+		<div v-else v-click-outside="() => popupOpen = false" class="bg-white absolute w-max z-[999]">
 			<ColorPicker style="color: #000;" :color="model" @color-change="(color) => model = color.colors.hex" />
 		</div>
 	</div>
