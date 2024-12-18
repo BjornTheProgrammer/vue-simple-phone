@@ -50,6 +50,19 @@ The starting value to use.
 
 <VueSimplePhone value="2345678901"/>
 
+## placeholder
+
+The placeholder to use instead of the default.
+
+* Type: `String`
+* Default: the example phone number from each country
+
+```vue
+<VueSimplePhone placeholder="(555) 000-0000"/>
+```
+
+<VueSimplePhone placeholder="(555) 000-0000"/>
+
 ## countries
 
 The list of countries to display in the dropdown as `ISO 3166-1` codes

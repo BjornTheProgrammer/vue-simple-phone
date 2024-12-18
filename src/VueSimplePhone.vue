@@ -18,6 +18,7 @@ const props = withDefaults(
 		countries?: string[];
 		disabled?: boolean;
 		opened?: boolean;
+		placeholder?: string;
 	}>(),
 	{
 		region: 'US',
@@ -201,7 +202,7 @@ const slots = useSlots();
 				:value="formattedNumber"
 				type="tel"
 				class="vue-simple-phone-input"
-				:placeholder="supportExamples.includes(selectedRegion) ? getExample(selectedRegion).number?.national || '' : ''"
+				:placeholder="placeholder ? placeholder : supportExamples.includes(selectedRegion) ? getExample(selectedRegion).number?.national || '' : ''"
 				:disabled="disabled"
 			/>
 		</div>
