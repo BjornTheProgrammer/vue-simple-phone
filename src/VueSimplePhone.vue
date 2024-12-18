@@ -19,6 +19,7 @@ const props = withDefaults(
 		disabled?: boolean;
 		opened?: boolean;
 		placeholder?: string;
+		displayFlags?: boolean;
 	}>(),
 	{
 		region: 'US',
@@ -28,6 +29,7 @@ const props = withDefaults(
 		countries: countriesFromFlagIcons,
 		disabled: false,
 		opened: undefined,
+		displayFlags: true,
 	},
 );
 
@@ -175,7 +177,7 @@ const slots = useSlots();
 									selectedRegion = country;
 									handleClose()
 								}">
-									<CountryFlag :flag="country" class="vue-simple-phone-button-icon" />
+									<CountryFlag v-if="displayFlags" :flag="country" class="vue-simple-phone-button-icon" />
 									<div class="vue-simple-phone-button-number" :key="regionNamesKey">
 										{{ regionNames.of(country) }} (+{{ getCountryCodeForRegionCode(country) }})
 									</div>
@@ -191,7 +193,7 @@ const slots = useSlots();
 				@click="handleToggle"
 				:disabled="disabled"
 			>
-				<CountryFlag :flag="selectedRegion" class="vue-simple-phone-button-icon" />
+				<CountryFlag v-if="displayFlags" :flag="selectedRegion" class="vue-simple-phone-button-icon" />
 				<div class="vue-simple-phone-button-number">
 					+{{ getCountryCodeForRegionCode(selectedRegion) }}
 				</div>

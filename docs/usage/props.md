@@ -89,6 +89,19 @@ Whether the input can be interacted with or not.
 
 <VueSimplePhone :disabled="true"/>
 
+## displayFlags
+
+Whether or not to display flags.
+
+* Type: `Boolean`
+* Default: `true`
+
+```vue
+<VueSimplePhone :displayFlags="false"/>
+```
+
+<VueSimplePhone :displayFlags="false"/>
+
 ## opened
 
 Whether or not the dropdown is open, note that it is not closeable, unless you change the value.
