@@ -107,6 +107,9 @@ function isNumeric(str: string) {
 }
 
 const handleKeypress = (e: KeyboardEvent) => {
+	if (e.key === 'Enter' || e.key === 'Tab') return;
+	e.preventDefault();
+
 	if (props.disabled) return;
 
 	const isNumber = isNumeric(e.key) && e.key !== ' ';
@@ -194,7 +197,7 @@ const slots = useSlots();
 				</svg>
 			</button>
 			<input 
-				@keydown.prevent="handleKeypress"
+				@keydown="handleKeypress"
 				:value="formattedNumber"
 				type="tel"
 				class="vue-simple-phone-input"
