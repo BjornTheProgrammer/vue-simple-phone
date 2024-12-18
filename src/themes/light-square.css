@@ -30,7 +30,7 @@
 }
 
 .vue-simple-phone-input-container {
-	background-color: #FFFFFF !important;
+	background-color: #ffffff !important;
 	color: #000000 !important;
 	display: flex !important;
 	border-radius: 2px !important;
@@ -53,12 +53,12 @@
 }
 
 .vue-simple-phone-button:hover {
-	background-color: rgba(0,0,0,0.05) !important;
+	background-color: rgba(0, 0, 0, 0.05) !important;
 }
 
 .vue-simple-phone-button:focus,
 .vue-simple-phone-button:focus:not(:focus-visible) {
-	outline: 2px solid #007BFF !important;
+	outline: 2px solid #007bff !important;
 	border-radius: 2px 0px 0px 2px !important;
 }
 
@@ -79,7 +79,7 @@
 }
 
 .vue-simple-phone-input:focus {
-	outline: 2px solid #007BFF !important;
+	outline: 2px solid #007bff !important;
 	border-radius: 0px 2px 2px 0px !important;
 }
 
@@ -101,12 +101,12 @@
 }
 
 .vue-simple-phone-button-dropdown {
-	background: #FFFFFF !important;
+	background: #ffffff !important;
 	position: absolute !important;
 	top: 52px !important;
 	border-radius: 2px !important;
 	z-index: 100 !important;
-	box-shadow: 0 4px 6px rgba(0,0,0,0.1) !important;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
 	border: solid 1px #00000022 !important;
 }
 
