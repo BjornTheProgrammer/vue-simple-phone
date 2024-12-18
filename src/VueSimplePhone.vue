@@ -161,13 +161,17 @@ const slots = useSlots();
 			<Transition name="vue-simple-phone">
 				<div v-if="buttonDropdown" class="vue-simple-phone-button-dropdown-wrapper">
 					<button
+						type="button"
 						class="vue-simple-phone-button-dropdown"
 						v-click-outside="handleClose"
 						:disabled="disabled"
 					>
 						<ul class="vue-simple-phone-button-dropdown-list">
 							<li class="vue-simple-phone-button-dropdown-item" v-for="country in countries">
-								<button class="vue-simple-phone-button-dropdown-item-button" @click="() => {
+								<button
+									type="button"
+									class="vue-simple-phone-button-dropdown-item-button"
+									@click="() => {
 									selectedRegion = country;
 									handleClose()
 								}">

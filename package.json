@@ -2,7 +2,7 @@
 	"name": "vue-simple-phone",
 	"private": false,
 	"license": "MIT",
-	"version": "1.0.4",
+	"version": "1.0.5",
 	"type": "module",
 	"files": ["dist"],
 	"main": "./dist/vue-simple-phone.umd.cjs",
