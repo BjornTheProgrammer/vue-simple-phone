@@ -1,6 +1,8 @@
 # Vue Simple Phone
 
+<p>
 <img alt="Vue Simple Phone logo" src="https://bjorntheprogrammer.github.io/vue-simple-phone/images/logo.png"/>
+</p>
 
 A simple and extendable phone number input component for Vue
 
