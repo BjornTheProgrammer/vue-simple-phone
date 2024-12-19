@@ -12,8 +12,6 @@ const props = defineProps({
 	},
 });
 
-const svg = ref('');
-
 const moduleStrings = import.meta.glob(
 	'../../node_modules/country-flag-icons/1x1/*.svg',
 	{
@@ -21,6 +19,8 @@ const moduleStrings = import.meta.glob(
 		import: 'default',
 	},
 );
+
+const svg = ref((await moduleStrings[`../../node_modules/country-flag-icons/1x1/${props.flag}.svg`]()));
 
 watch(
 	() => props.flag,
@@ -31,7 +31,6 @@ watch(
 			]()) as string;
 		}
 	},
-	{ immediate: true },
 );
 </script>
 
