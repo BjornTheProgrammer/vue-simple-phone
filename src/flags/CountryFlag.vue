@@ -20,7 +20,11 @@ const moduleStrings = import.meta.glob(
 	},
 );
 
-const svg = ref((await moduleStrings[`../../node_modules/country-flag-icons/1x1/${props.flag}.svg`]()));
+const svg = ref(
+	await moduleStrings[
+		`../../node_modules/country-flag-icons/1x1/${props.flag}.svg`
+	](),
+);
 
 watch(
 	() => props.flag,
