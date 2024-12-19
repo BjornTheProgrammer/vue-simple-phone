@@ -8,8 +8,8 @@ import {
 } from 'awesome-phonenumber';
 import { countries as countriesFromFlagIcons } from 'country-flag-icons';
 import { ref, useSlots, watch } from 'vue';
-import CountryFlag from './flags/CountryFlag.vue';
 import { vClickOutside } from './directives/click-outside';
+import CountryFlag from './flags/CountryFlag.vue';
 
 const props = withDefaults(
 	defineProps<{
