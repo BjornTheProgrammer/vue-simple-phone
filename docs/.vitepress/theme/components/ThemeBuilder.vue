@@ -17,15 +17,34 @@ const flagsBorderRadius = computed(() => {
 });
 
 const cssCode = computed(() => {
-	return `.vue-simple-phone-enter-active,
-.vue-simple-phone-leave-active {
-	transition: opacity ${transitionTime.value}s ease;
-	z-index: 50;
-}
+	return `.vue-simple-phone-button-dropdown-dialog {
+	--duration: .14s;
+	z-index: 10;
+	color: ${textColor.value} !important;
 
-.vue-simple-phone-enter-from,
-.vue-simple-phone-leave-to {
-	opacity: 0;
+	transition: opacity var(--duration), visibility var(--duration);
+	transition-timing-function: ease-in-out;
+
+	&[open] {
+		/* Post-Entry (Normal) State */
+		opacity: 1;
+		visibility: visible;
+		display: block;
+
+		/* Pre-Entry State */
+		@starting-style {
+			opacity: 0;
+			visibility: hidden;
+			display: block;
+		}
+	}
+
+	/* Exiting State */
+	&:not([open]) {
+		opacity: 0;
+		visibility: hidden;
+		display: block;
+	}
 }
 
 .vue-simple-phone-container * {
@@ -119,12 +138,14 @@ const cssCode = computed(() => {
 	height: 20px !important;
 }
 
+.vue-simple-phone-button-dropdown-dialog {
+	margin: 0px !important;
+	margin-top: 51px !important;
+}
+
 .vue-simple-phone-button-dropdown {
 	background: ${backgroundColor.value} !important;
-	position: absolute !important;
-	top: 52px !important;
 	border-radius: ${dropdownBorderRadius.value}px !important;
-	z-index: 100 !important;
 	box-shadow: 0 4px 6px rgba(0,0,0,0.1) !important;
 	border: solid 1px ${borderColor.value} !important;
 }
