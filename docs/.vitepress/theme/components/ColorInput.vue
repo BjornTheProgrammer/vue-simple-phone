@@ -9,8 +9,10 @@ const model = defineModel<string>({
 
 const dialog = useTemplateRef('dialog');
 const open = () => {
-	setTimeout(() => {dialog.value.showModal()})
-}
+	setTimeout(() => {
+		dialog.value.showModal();
+	});
+};
 </script>
 
 <template>
