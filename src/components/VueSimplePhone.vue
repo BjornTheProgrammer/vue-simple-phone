@@ -7,9 +7,9 @@ import {
 	getSupportedRegionCodes,
 } from 'awesome-phonenumber';
 import { countries as countriesFromFlagIcons } from 'country-flag-icons';
-import { ref, useSlots, watch } from 'vue';
-import { vClickOutside } from './directives/click-outside';
-import CountryFlag from './flags/CountryFlag.vue';
+import { ref, useSlots, watch, useTemplateRef } from 'vue';
+import { vClickOutside } from '../directives/click-outside';
+import CountryFlag from '../flags/CountryFlag.vue';
 
 const props = withDefaults(
 	defineProps<{
@@ -42,7 +42,7 @@ const emit = defineEmits<{
 let regionNames = new Intl.DisplayNames(props.language, { type: 'region' });
 const regionNamesKey = ref(0);
 
-const buttonDropdown = ref(props.opened);
+const dialog = useTemplateRef('dialog');
 const selectedRegion = ref(props.region);
 
 watch(
@@ -60,15 +60,6 @@ watch(
 	(newValue, oldValue) => {
 		if (oldValue !== newValue) {
 			selectedRegion.value = newValue;
-		}
-	},
-);
-
-watch(
-	() => props.opened,
-	(newValue, oldValue) => {
-		if (oldValue !== newValue) {
-			buttonDropdown.value = newValue ?? false;
 		}
 	},
 );
@@ -123,20 +114,23 @@ const handleKeypress = (e: KeyboardEvent) => {
 	formattedNumber.value = phone.number?.national || ayt.number();
 };
 
-const handleClose = () => {
-	if (props.opened === undefined) buttonDropdown.value = false;
+const closeDialog = () => {
 	emit('close');
-};
+	if (props.opened === undefined) dialog.value?.close();
+}
 
-const handleOpen = () => {
-	if (props.opened === undefined) buttonDropdown.value = true;
-	emit('open');
-};
+const openDialog = () => {
+	// Have to do this, because otherwise it will trigger before the v-on-click does.
+	setTimeout(() => {
+		emit('open');
+		if (props.opened === undefined) dialog.value?.show();
+	});
+}
 
-const handleToggle = () => {
-	if (buttonDropdown.value === true) handleClose();
-	else handleOpen();
-};
+const toggleDialog = () => {
+	if (dialog.value?.open) return closeDialog();
+	openDialog();
+}
 
 const supportExamples = getSupportedRegionCodes();
 const slots = useSlots();
@@ -148,40 +142,62 @@ const slots = useSlots();
 			<slot />
 		</label>
 		<div class="vue-simple-phone-input-container">
-			<Transition name="vue-simple-phone">
-				<div v-if="buttonDropdown" class="vue-simple-phone-button-dropdown-wrapper">
-					<button
-						type="button"
-						class="vue-simple-phone-button-dropdown"
-						v-click-outside="handleClose"
-						:disabled="disabled"
-					>
-						<ul class="vue-simple-phone-button-dropdown-list">
-							<li class="vue-simple-phone-button-dropdown-item" v-for="country in countries">
-								<button
-									type="button"
-									class="vue-simple-phone-button-dropdown-item-button"
-									@click="() => {
+			<dialog
+				ref="dialog"
+				class="vue-simple-phone-button-dropdown-dialog"
+				@keydown="(event) => {
+					if (event.key == 'Escape') {
+						closeDialog()
+					}
+				}"
+				v-click-outside="() => {
+					if (dialog?.open) closeDialog();
+				}"
+				:open="opened"
+			>
+				<div
+					class="vue-simple-phone-button-dropdown"
+					:disabled="disabled"
+				>
+					<ul class="vue-simple-phone-button-dropdown-list" role="listbox">
+						<li
+							v-for="country in countries"
+							:key="country"
+							class="vue-simple-phone-button-dropdown-item"
+							role="option"
+							:aria-selected="country === selectedRegion"
+						>
+							<button
+								type="button"
+								class="vue-simple-phone-button-dropdown-item-button"
+								@click="() => {
 									selectedRegion = country;
-									handleClose()
-								}">
-									<Suspense>
-										<CountryFlag v-if="displayFlags" :flag="country" class="vue-simple-phone-button-icon" />
-									</Suspense>
-									<div class="vue-simple-phone-button-number" :key="regionNamesKey">
-										{{ regionNames.of(country) }} (+{{ getCountryCodeForRegionCode(country) }})
-									</div>
-								</button>
-							</li>
-						</ul>
-					</button>
+								}"
+							>
+								<Suspense>
+									<CountryFlag
+										v-if="displayFlags"
+										:flag="country"
+										class="vue-simple-phone-button-icon"
+										:aria-hidden="true" 
+									/>
+								</Suspense>
+								<div
+									class="vue-simple-phone-button-number"
+									:key="regionNamesKey"
+								>
+									{{ regionNames.of(country) }} (+{{ getCountryCodeForRegionCode(country) }})
+								</div>
+							</button>
+						</li>
+					</ul>
 				</div>
-			</Transition>
+			</dialog>
 			<button
 				type="button"
 				class="vue-simple-phone-button"
-				@click="handleToggle"
 				:disabled="disabled"
+				@click.passive="toggleDialog"
 			>
 				<Suspense>
 					<CountryFlag v-if="displayFlags" :flag="selectedRegion" class="vue-simple-phone-button-icon" />
