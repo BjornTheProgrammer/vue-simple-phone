@@ -17,11 +17,10 @@ const imports = import.meta.glob('../../../../src/themes/*.css', {
 	import: 'default',
 });
 
+// @ts-ignore
 const cssThemes = new Map<string, string>(
-	// @ts-ignore
 	await Promise.all(
 		Object.entries(imports).map(async ([moduleString, func]) => {
-			// @ts-ignore
 			return [moduleString, await func()];
 		}),
 	),

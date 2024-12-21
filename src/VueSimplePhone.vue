@@ -7,9 +7,8 @@ import {
 	getSupportedRegionCodes,
 } from 'awesome-phonenumber';
 import { countries as countriesFromFlagIcons } from 'country-flag-icons';
-import { ref, useSlots, watch } from 'vue';
+import { type Directive, ref, useSlots, watch } from 'vue';
 import CountryFlag from './flags/CountryFlag.vue';
-import { vClickOutside } from './directives/click-outside';
 
 const props = withDefaults(
 	defineProps<{
@@ -89,6 +88,19 @@ watch(selectedRegion, async (newRegion) => {
 
 const formattedNumber = ref(ayt.number());
 
+const vClickOutside: Directive = {
+	beforeMount: (el, binding) => {
+		el.clickOutsideEvent = (event: MouseEvent) => {
+			if (!(el === event.target || el.contains(event.target))) binding.value();
+		};
+
+		setTimeout(() => document.addEventListener('click', el.clickOutsideEvent));
+	},
+	unmounted: (el) => {
+		document.removeEventListener('click', el.clickOutsideEvent);
+	},
+};
+
 function isNumeric(str: string) {
 	if (typeof str !== 'string') return false; // we only process strings!
 	return (
@@ -165,9 +177,7 @@ const slots = useSlots();
 									selectedRegion = country;
 									handleClose()
 								}">
-									<Suspense>
-										<CountryFlag v-if="displayFlags" :flag="country" class="vue-simple-phone-button-icon" />
-									</Suspense>
+									<CountryFlag v-if="displayFlags" :flag="country" class="vue-simple-phone-button-icon" />
 									<div class="vue-simple-phone-button-number" :key="regionNamesKey">
 										{{ regionNames.of(country) }} (+{{ getCountryCodeForRegionCode(country) }})
 									</div>
@@ -183,9 +193,7 @@ const slots = useSlots();
 				@click="handleToggle"
 				:disabled="disabled"
 			>
-				<Suspense>
-					<CountryFlag v-if="displayFlags" :flag="selectedRegion" class="vue-simple-phone-button-icon" />
-				</Suspense>
+				<CountryFlag v-if="displayFlags" :flag="selectedRegion" class="vue-simple-phone-button-icon" />
 				<div class="vue-simple-phone-button-number">
 					+{{ getCountryCodeForRegionCode(selectedRegion) }}
 				</div>
