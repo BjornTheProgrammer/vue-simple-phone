@@ -1,30 +1,12 @@
-.vue-simple-phone-button-dropdown-dialog {
-	--duration: .14s;
-	z-index: 10;
+.vue-simple-phone-enter-active,
+.vue-simple-phone-leave-active {
+	transition: opacity 0.14s ease;
+	z-index: 50;
+}
 
-	transition: opacity var(--duration), visibility var(--duration);
-	transition-timing-function: ease-in-out;
-
-	&[open] {
-		/* Post-Entry (Normal) State */
-		opacity: 1;
-		visibility: visible;
-		display: block;
-
-		/* Pre-Entry State */
-		@starting-style {
-			opacity: 0;
-			visibility: hidden;
-			display: block;
-		}
-	}
-
-	/* Exiting State */
-	&:not([open]) {
-		opacity: 0;
-		visibility: hidden;
-		display: block;
-	}
+.vue-simple-phone-enter-from,
+.vue-simple-phone-leave-to {
+	opacity: 0;
 }
 
 .vue-simple-phone-container * {
@@ -117,20 +99,18 @@
 	height: 20px !important;
 }
 
-.vue-simple-phone-button-dropdown-dialog {
-	margin: 0px !important;
-	margin-top: 51px !important;
-}
-
 .vue-simple-phone-button-dropdown {
 	background: #fff !important;
+	position: absolute !important;
+	top: 52px !important;
 	border-radius: 10px !important;
+	z-index: 100 !important;
 	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
 }
 
 .vue-simple-phone-button-dropdown-list {
 	padding: 0px !important;
-	margin: 0px !important;
+	margin: 10px 0px !important;
 	height: 200px !important;
 	overflow: scroll !important;
 	list-style-type: none !important;
