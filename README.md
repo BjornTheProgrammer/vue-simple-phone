@@ -28,6 +28,12 @@ Extensive documentation and a demo can be found [here](https://bjorntheprogramme
 
 Build out your own theme with our [theme builder](https://bjorntheprogrammer.github.io/vue-simple-phone/usage/theme-builder)!
 
+## Use different languages
+
+By default Vue Simple Phone supports any language, using Intl, read more about such options [here](https://bjorntheprogrammer.github.io/vue-simple-phone/usage/props.html).
+
+![Example of the different languages](https://bjorntheprogrammer.github.io/vue-simple-phone/images/languages.png)
+
 ## A quick peek
 
 ![Example of the different themes available to Vue Simple Phone](https://bjorntheprogrammer.github.io/vue-simple-phone/images/examples.png)

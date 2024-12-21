@@ -32,6 +32,12 @@
 	}
 }
 
+.vue-simple-phone-button-search {
+	max-height: 0 !important;
+	max-width: 0 !important;
+	display: block !important;
+}
+
 .vue-simple-phone-container * {
 	box-sizing: border-box;
 }
@@ -81,7 +87,7 @@
 
 .vue-simple-phone-button:focus,
 .vue-simple-phone-button:focus:not(:focus-visible) {
-	outline: 2px solid #007bff !important;
+	outline: 2px solid #ddd !important;
 	border-radius: 10px 0px 0px 10px !important;
 }
 
@@ -102,7 +108,7 @@
 }
 
 .vue-simple-phone-input:focus {
-	outline: 2px solid #007bff !important;
+	outline: 2px solid #ddd !important;
 	border-radius: 0px 10px 10px 0px !important;
 }
 
@@ -132,15 +138,20 @@
 
 .vue-simple-phone-button-dropdown-list {
 	padding: 0px !important;
-	margin: 0px !important;
+	margin: 4px 0px !important;
 	height: 200px !important;
 	overflow: scroll !important;
 	list-style-type: none !important;
+	min-width: 300px !important;
 }
 
 .vue-simple-phone-button-dropdown-item {
 	margin: 0 !important;
 	list-style-type: none !important;
+}
+
+.vue-simple-phone-button-dropdown-item:focus {
+	outline: 2px solid #ddd !important;
 }
 
 .vue-simple-phone-button-dropdown-item:hover {
@@ -152,6 +163,11 @@
 	align-items: center !important;
 	width: 100% !important;
 	height: 100% !important;
-	padding: 5px 10px !important;
+	padding: 3px 10px !important;
+	margin: 2px 0px !important;
 	cursor: pointer !important;
+}
+
+.vue-simple-phone-button-dropdown-item-button:focus {
+	outline: 2px solid #ddd !important;
 }

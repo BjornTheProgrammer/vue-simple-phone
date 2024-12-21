@@ -1,6 +1,3 @@
-<script>
-	
-</script>
 <script setup lang="ts">
 import {
 	type ParsedPhoneNumber,
@@ -24,6 +21,7 @@ const props = withDefaults(
 		opened?: boolean;
 		placeholder?: string;
 		displayFlags?: boolean;
+		autocomplete?: boolean;
 	}>(),
 	{
 		region: 'US',
@@ -33,21 +31,27 @@ const props = withDefaults(
 			// This is kinda ugly, but basically all it does is it makes it so that in whatever specified
 			// language that is used, the list is sorted alphabetically by default. Any improvements
 			// are welcome for this code.
-			const regionNames = new Intl.DisplayNames(props.language, { type: 'region' });
+			const regionNames = new Intl.DisplayNames(props.language, {
+				type: 'region',
+			});
 			const originalNamesMap = new Map<string, string>();
-			return countriesFromFlagIcons.map(country => {
-				const countryName = regionNames.of(country) as string;
-				originalNamesMap.set(countryName, country);
-				return countryName;
-			}).sort((a, b) => {
-				return a.localeCompare(b, props.language, { sensitivity: 'base' })
-			}).map(name => {
-				return originalNamesMap.get(name) as string
-			})
+			return countriesFromFlagIcons
+				.map((country) => {
+					const countryName = regionNames.of(country) as string;
+					originalNamesMap.set(countryName, country);
+					return countryName;
+				})
+				.sort((a, b) => {
+					return a.localeCompare(b, props.language, { sensitivity: 'base' });
+				})
+				.map((name) => {
+					return originalNamesMap.get(name) as string;
+				});
 		},
 		disabled: false,
 		opened: undefined,
 		displayFlags: true,
+		autocomplete: true,
 	},
 );
 
@@ -57,10 +61,15 @@ const emit = defineEmits<{
 }>();
 
 let regionNames = new Intl.DisplayNames(props.language, { type: 'region' });
+
 const regionNamesKey = ref(0);
+const search = ref('');
 
 const dialog = useTemplateRef('dialog');
+const searchInput = useTemplateRef('searchInput');
+
 const selectedRegion = ref(props.region);
+const searchedCountries = ref<string[]>(props.countries);
 
 watch(
 	() => props.language,
@@ -80,6 +89,19 @@ watch(
 		}
 	},
 );
+
+watch(search, (newValue) => {
+	const newCountries = props.countries.filter((country) => {
+		return (
+			country.toLowerCase().includes(newValue.toLowerCase()) ||
+			(regionNames.of(country) as string)
+				.toLowerCase()
+				.includes(newValue.toLowerCase())
+		);
+	});
+
+	searchedCountries.value = newCountries;
+});
 
 const model = defineModel<ParsedPhoneNumber>();
 
@@ -137,7 +159,7 @@ const closeDialog = () => {
 };
 
 const openDialog = () => {
-	// Have to do this, because otherwise it will trigger before the v-on-click does.
+	// Have to do this, because otherwise it will trigger before the v-click-outside does.
 	setTimeout(() => {
 		emit('open');
 		if (props.opened === undefined) dialog.value?.show();
@@ -151,6 +173,14 @@ const toggleDialog = () => {
 
 const supportExamples = getSupportedRegionCodes();
 const slots = useSlots();
+
+const focusOnSearchInput = (e: KeyboardEvent) => {
+	if (!props.autocomplete) return;
+	// If not an alpha numeric key, then don't handle
+	if (!/^[a-z0-9]$/i.test(e.key)) return;
+	e.preventDefault();
+	searchInput.value?.focus();
+};
 </script>
 
 <template>
@@ -165,6 +195,38 @@ const slots = useSlots();
 			}"
 			aria-label="Phone number input"
 		>
+			<button
+				type="button"
+				class="vue-simple-phone-button"
+				aria-label="Country Code Selector"
+				aria-haspopup="listbox"
+				:aria-expanded="dialog?.open ?? false"
+				:disabled="disabled"
+				@click.prevent="toggleDialog"
+				tabindex="0"
+				@keydown="focusOnSearchInput"
+			>
+				<Suspense>
+					<CountryFlag v-if="displayFlags" :flag="selectedRegion" class="vue-simple-phone-button-icon" />
+				</Suspense>
+				<div class="vue-simple-phone-button-number">
+					+{{ getCountryCodeForRegionCode(selectedRegion) }}
+				</div>
+				<svg class="vue-simple-phone-button-dropdown-icon" xmlns="http://www.w3.org/2000/svg"
+					viewBox="0 0 448 512">
+					<path
+						d="M201.4 374.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 306.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z" />
+				</svg>
+			</button>
+			<input
+				@keydown="handleKeypress"
+				:value="formattedNumber"
+				type="tel"
+				class="vue-simple-phone-input"
+				aria-label="Phone number input"
+				:placeholder="placeholder ? placeholder : supportExamples.includes(selectedRegion) ? getExample(selectedRegion).number?.national || '' : ''"
+				:disabled="disabled"
+			/>
 			<dialog
 				ref="dialog"
 				class="vue-simple-phone-button-dropdown-dialog"
@@ -177,13 +239,30 @@ const slots = useSlots();
 					class="vue-simple-phone-button-dropdown"
 					:disabled="disabled"
 				>
+					<input
+						v-if="autocomplete"
+						type="text"
+						ref="searchInput"
+						class="vue-simple-phone-button-search"
+						aria-label="Search country by country code or name"
+						v-model="search"
+						autofocus
+						tabindex="-1"
+						@keydown="(event) => {
+							const key = event.key;
+							if (key === 'Backspace' || key === 'Delete') {
+								search = '';
+							}
+						}"
+					/>
 					<ul class="vue-simple-phone-button-dropdown-list" role="listbox">
 						<li
-							v-for="country in countries"
+							v-for="country in searchedCountries"
 							:key="country"
 							class="vue-simple-phone-button-dropdown-item"
 							role="option"
 							:aria-selected="country === selectedRegion"
+							@keydown="focusOnSearchInput"
 						>
 							<button
 								type="button"
@@ -193,6 +272,7 @@ const slots = useSlots();
 									selectedRegion = country;
 									closeDialog();
 								}"
+								tabindex="0"
 							>
 								<Suspense>
 									<CountryFlag
@@ -213,36 +293,6 @@ const slots = useSlots();
 					</ul>
 				</div>
 			</dialog>
-			<button
-				type="button"
-				class="vue-simple-phone-button"
-				aria-label="Country Code Selector"
-				aria-haspopup="listbox"
-				:aria-expanded="dialog?.open ?? false"
-				:disabled="disabled"
-				@click.passive="toggleDialog"
-			>
-				<Suspense>
-					<CountryFlag v-if="displayFlags" :flag="selectedRegion" class="vue-simple-phone-button-icon" />
-				</Suspense>
-				<div class="vue-simple-phone-button-number">
-					+{{ getCountryCodeForRegionCode(selectedRegion) }}
-				</div>
-				<svg class="vue-simple-phone-button-dropdown-icon" xmlns="http://www.w3.org/2000/svg"
-					viewBox="0 0 448 512">
-					<path
-						d="M201.4 374.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 306.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z" />
-				</svg>
-			</button>
-			<input 
-				@keydown="handleKeypress"
-				:value="formattedNumber"
-				type="tel"
-				class="vue-simple-phone-input"
-				aria-label="Phone number input"
-				:placeholder="placeholder ? placeholder : supportExamples.includes(selectedRegion) ? getExample(selectedRegion).number?.national || '' : ''"
-				:disabled="disabled"
-			/>
 		</div>
 	</div>
 </template>

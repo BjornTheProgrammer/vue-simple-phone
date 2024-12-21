@@ -8,7 +8,6 @@ import { useData } from 'vitepress'
 import { ref, onMounted } from 'vue'
 
 const { site, theme, page, frontmatter } = useData()
-const openedPropExample = ref(true);
 </script>
 
 ## @update:modelValue ([`ParsedPhoneNumber`](../guide/binding.md))
@@ -19,6 +18,8 @@ Triggers when a user tries to input their number.
 <VueSimplePhone @update:modelValue="(number) => console.log(number)"/>
 ```
 
+<VueSimplePhone @update:modelValue="(number) => console.log(number)"/>
+
 ## @open
 
 Triggers when a user tried to open the dropdown via clicking on the button.
@@ -27,6 +28,8 @@ Triggers when a user tried to open the dropdown via clicking on the button.
 <VueSimplePhone @open="console.log('opening')"/>
 ```
 
+<VueSimplePhone @open="console.log('opening')"/>
+
 ## @close
 
 Triggers when a user tried to close the dropdown via clicking outside, selecting a new country, clicking on the button.
@@ -34,6 +37,8 @@ Triggers when a user tried to close the dropdown via clicking outside, selecting
 ```vue
 <VueSimplePhone @close="console.log('closing')"/>
 ```
+
+<VueSimplePhone @close="console.log('closing')"/>
 
 ## Missing Something?
 
