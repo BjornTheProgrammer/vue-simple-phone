@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import {
 	type ParsedPhoneNumber,
+	type PhoneNumberTypes,
 	getAsYouType,
 	getCountryCodeForRegionCode,
 	getExample,
 	getSupportedRegionCodes,
-	PhoneNumberTypes
 } from 'awesome-phonenumber';
 import { countries as countriesFromFlagIcons } from 'country-flag-icons';
 import { ref, useSlots, useTemplateRef, watch } from 'vue';
