@@ -67,8 +67,11 @@ let regionNames = new Intl.DisplayNames(props.language, { type: 'region' });
 const regionNamesKey = ref(0);
 const search = ref('');
 
-const dialog = useTemplateRef('dialog');
-const searchInput = useTemplateRef('searchInput');
+// These have to be named differently than the element name, otherwise we get
+// a lot of warnings
+// https://github.com/vuejs/core/issues/11795
+const dialogRef = useTemplateRef('dialog');
+const searchInputRef = useTemplateRef('searchInput');
 
 const selectedRegion = ref(props.region);
 const searchedCountries = ref<string[]>(props.countries);
@@ -157,19 +160,19 @@ const handleKeypress = (e: KeyboardEvent) => {
 
 const closeDialog = () => {
 	emit('close');
-	if (props.opened === undefined) dialog.value?.close();
+	if (props.opened === undefined) dialogRef.value?.close();
 };
 
 const openDialog = () => {
 	// Have to do this, because otherwise it will trigger before the v-click-outside does.
 	setTimeout(() => {
 		emit('open');
-		if (props.opened === undefined) dialog.value?.show();
+		if (props.opened === undefined) dialogRef.value?.show();
 	});
 };
 
 const toggleDialog = () => {
-	if (dialog.value?.open) return closeDialog();
+	if (dialogRef.value?.open) return closeDialog();
 	openDialog();
 };
 
@@ -181,7 +184,7 @@ const focusOnSearchInput = (e: KeyboardEvent) => {
 	// If not an alpha numeric key, then don't handle
 	if (!/^[a-z0-9]$/i.test(e.key)) return;
 	e.preventDefault();
-	searchInput.value?.focus();
+	searchInputRef.value?.focus();
 };
 </script>
 
@@ -193,7 +196,7 @@ const focusOnSearchInput = (e: KeyboardEvent) => {
 		<div
 			class="vue-simple-phone-input-container"
 			@keydown.esc="() => {
-				if (dialog?.open) closeDialog();
+				if (dialogRef?.open) closeDialog();
 			}"
 			aria-label="Phone number input"
 		>
@@ -202,7 +205,7 @@ const focusOnSearchInput = (e: KeyboardEvent) => {
 				class="vue-simple-phone-button"
 				aria-label="Country Code Selector"
 				aria-haspopup="listbox"
-				:aria-expanded="dialog?.open ?? false"
+				:aria-expanded="dialogRef?.open ?? false"
 				:disabled="disabled"
 				@click.prevent="toggleDialog"
 				tabindex="0"
@@ -233,7 +236,7 @@ const focusOnSearchInput = (e: KeyboardEvent) => {
 				ref="dialog"
 				class="vue-simple-phone-button-dropdown-dialog"
 				v-click-outside="() => {
-					if (dialog?.open) closeDialog();
+					if (dialogRef?.open) closeDialog();
 				}"
 				:open="opened"
 			>
