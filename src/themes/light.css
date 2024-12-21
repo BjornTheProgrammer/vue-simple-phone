@@ -1,7 +1,6 @@
 .vue-simple-phone-button-dropdown-dialog {
 	--duration: .14s;
 	z-index: 10;
-	color: #000 !important;
 
 	transition: opacity var(--duration), visibility var(--duration);
 	transition-timing-function: ease-in-out;
@@ -127,7 +126,6 @@
 	background: #fff !important;
 	border-radius: 10px !important;
 	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
-	border: solid 1px #00000022 !important;
 }
 
 .vue-simple-phone-button-dropdown-list {

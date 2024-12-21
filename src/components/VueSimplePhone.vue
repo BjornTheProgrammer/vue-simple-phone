@@ -141,17 +141,15 @@ const slots = useSlots();
 		<label v-if="slots.default" class="vue-simple-phone-label">
 			<slot />
 		</label>
-		<div
-			class="vue-simple-phone-input-container"
-			@keydown="(event) => {
-				if (event.key == 'Escape') {
-					if (dialog?.open) closeDialog();
-				}
-			}"
-		>
+		<div class="vue-simple-phone-input-container">
 			<dialog
 				ref="dialog"
 				class="vue-simple-phone-button-dropdown-dialog"
+				@keydown="(event) => {
+					if (event.key == 'Escape') {
+						closeDialog()
+					}
+				}"
 				v-click-outside="() => {
 					if (dialog?.open) closeDialog();
 				}"
@@ -174,7 +172,6 @@ const slots = useSlots();
 								class="vue-simple-phone-button-dropdown-item-button"
 								@click="() => {
 									selectedRegion = country;
-									closeDialog();
 								}"
 							>
 								<Suspense>
