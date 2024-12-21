@@ -18,7 +18,7 @@ const flagsBorderRadius = computed(() => {
 
 const cssCode = computed(() => {
 	return `.vue-simple-phone-button-dropdown-dialog {
-	--duration: .14s;
+	--duration: ${transitionTime.value}s;
 	z-index: 10;
 	color: ${textColor.value} !important;
 	margin: 0px !important;
@@ -49,6 +49,12 @@ const cssCode = computed(() => {
 		visibility: hidden;
 		display: block;
 	}
+}
+
+.vue-simple-phone-button-search {
+	max-height: 0 !important;
+	max-width: 0 !important;
+	display: block !important;
 }
 
 .vue-simple-phone-container * {
@@ -151,15 +157,20 @@ const cssCode = computed(() => {
 
 .vue-simple-phone-button-dropdown-list {
 	padding: 0px !important;
-	margin: 10px 0px !important;
+	margin: 4px 0px !important;
 	height: 200px !important;
 	overflow: scroll !important;
 	list-style-type: none !important;
+	min-width: 300px !important;
 }
 
 .vue-simple-phone-button-dropdown-item {
 	margin: 0 !important;
 	list-style-type: none !important;
+}
+
+.vue-simple-phone-button-dropdown-item:focus {
+	outline: 2px solid ${outlineColor.value} !important;
 }
 
 .vue-simple-phone-button-dropdown-item:hover {
@@ -171,8 +182,13 @@ const cssCode = computed(() => {
 	align-items: center !important;
 	width: 100% !important;
 	height: 100% !important;
-	padding: 5px 10px !important;
+	padding: 3px 10px !important;
+	margin: 2px 0px !important;
 	cursor: pointer !important;
+}
+
+.vue-simple-phone-button-dropdown-item-button:focus {
+	outline: 2px solid ${outlineColor.value} !important;
 }
 `;
 });

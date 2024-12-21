@@ -102,6 +102,19 @@ Whether or not to display flags.
 
 <VueSimplePhone :displayFlags="false"/>
 
+## autocomplete
+
+Whether or not to enable autocomplete for the country selector.
+
+* Type: `Boolean`
+* Default: `true`
+
+```vue
+<VueSimplePhone :autocomplete="false"/>
+```
+
+<VueSimplePhone :autocomplete="false"/>
+
 ## opened
 
 Whether or not the dropdown is open, note that it is not closeable, unless you change the value.
