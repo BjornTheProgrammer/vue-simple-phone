@@ -115,6 +115,19 @@ Whether or not to enable autocomplete for the country selector.
 
 <VueSimplePhone :autocomplete="false"/>
 
+## phoneNumberType
+
+Whether or not to enable autocomplete for the country selector.
+
+* Type: [`PhoneNumberTypes`](https://github.com/grantila/awesome-phonenumber?tab=readme-ov-file#phone-number-types)
+* Default: `undefined`
+
+```vue
+<VueSimplePhone phoneNumberType="toll-free"/>
+```
+
+<VueSimplePhone phoneNumberType="toll-free"/>
+
 ## opened
 
 Whether or not the dropdown is open, note that it is not closeable, unless you change the value.
