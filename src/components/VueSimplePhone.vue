@@ -7,7 +7,7 @@ import {
 	getSupportedRegionCodes,
 } from 'awesome-phonenumber';
 import { countries as countriesFromFlagIcons } from 'country-flag-icons';
-import { ref, useSlots, useTemplateRef, watch } from 'vue';
+import { ref, useSlots, watch, useTemplateRef } from 'vue';
 import { vClickOutside } from '../directives/click-outside';
 import CountryFlag from '../flags/CountryFlag.vue';
 
@@ -117,7 +117,7 @@ const handleKeypress = (e: KeyboardEvent) => {
 const closeDialog = () => {
 	emit('close');
 	if (props.opened === undefined) dialog.value?.close();
-};
+}
 
 const openDialog = () => {
 	// Have to do this, because otherwise it will trigger before the v-on-click does.
@@ -125,12 +125,12 @@ const openDialog = () => {
 		emit('open');
 		if (props.opened === undefined) dialog.value?.show();
 	});
-};
+}
 
 const toggleDialog = () => {
 	if (dialog.value?.open) return closeDialog();
 	openDialog();
-};
+}
 
 const supportExamples = getSupportedRegionCodes();
 const slots = useSlots();
