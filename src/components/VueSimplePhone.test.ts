@@ -1,5 +1,4 @@
-import { page } from '@vitest/browser/context';
-import { describe, expect, test } from 'vitest';
+import { expect, test } from 'vitest';
 import { render } from 'vitest-browser-vue';
 import VueSimplePhone from './VueSimplePhone.vue';
 import '../themes/light-square.css';
