@@ -22,7 +22,11 @@
 		"noFallthroughCasesInSwitch": true,
 		// "noUncheckedSideEffectImports": true,
 
-		"types": ["vite/client"]
+		"types": [
+			"vite/client",
+			"vitest/config",
+			"@vitest/browser/providers/playwright"
+		]
 	},
 	"include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"]
 }
