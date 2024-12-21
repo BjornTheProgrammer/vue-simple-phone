@@ -1,3 +1,6 @@
+<script>
+	
+</script>
 <script setup lang="ts">
 import {
 	type ParsedPhoneNumber,
@@ -26,8 +29,22 @@ const props = withDefaults(
 		region: 'US',
 		// @ts-ignore
 		language: ['en'] as Intl.LocalesArgument,
-		// @ts-ignore
-		countries: countriesFromFlagIcons,
+		countries: (props) => {
+			// This is kinda ugly, but basically all it does is it makes it so that in whatever specified
+			// language that is used, the list is sorted alphabetically by default. Any improvements
+			// are welcome for this code.
+			const regionNames = new Intl.DisplayNames(props.language, { type: 'region' });
+			const originalNamesMap = new Map<string, string>();
+			return countriesFromFlagIcons.map(country => {
+				const countryName = regionNames.of(country) as string;
+				originalNamesMap.set(countryName, country);
+				return countryName;
+			}).sort((a, b) => {
+				return a.localeCompare(b, props.language, { sensitivity: 'base' })
+			}).map(name => {
+				return originalNamesMap.get(name) as string
+			})
+		},
 		disabled: false,
 		opened: undefined,
 		displayFlags: true,
