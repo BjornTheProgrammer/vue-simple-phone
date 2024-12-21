@@ -18,13 +18,17 @@ Ensure that you have the following installed
 4. Install the [`Biome`](https://biomejs.dev/guides/integrate-in-editor/) LSP for your editor
 
 ### Developing
-You're now ready to start developing! Just make your desired changes to the repository, and run the code by writing a new or running an existing test, to try out your changes!
+You're now ready to start developing! Just make your desired changes to the repository, and run the code by writing a new or running an existing test, to try out your changes! To run the tests, run `npm run test`.
 
 Run `npm run dev` in order to start up the vitepress docs. You can test your changes in the docs as well!
 
 After you are finished with all of your changes, and you wish to make a pull request, first ensure all examples on the docs are rendering and behaving properly, then run `npm run lint` to see if there are any linting issues. You can automatically fix some of the issues with `npm run lint:fix`.
 
 That's it! Just create a pull request with your changes, and we'll try to review it quickly!
+
+> [!IMPORTANT]
+> Make sure you make your pull request on the dev branch! The main branch is linked with the online docs,
+> and as such should only be merged into, when we are ready to make another release!
 
 ## Reporting Issues
 If you encounter a bug or have a suggestion, please [create an issue](https://github.com/BjornTheProgrammer/vue-simple-phone/issues/new). Provide as much detail as possible, including:
