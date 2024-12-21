@@ -5,6 +5,7 @@ import {
 	getCountryCodeForRegionCode,
 	getExample,
 	getSupportedRegionCodes,
+	PhoneNumberTypes
 } from 'awesome-phonenumber';
 import { countries as countriesFromFlagIcons } from 'country-flag-icons';
 import { ref, useSlots, useTemplateRef, watch } from 'vue';
@@ -22,6 +23,7 @@ const props = withDefaults(
 		placeholder?: string;
 		displayFlags?: boolean;
 		autocomplete?: boolean;
+		phoneNumberType?: PhoneNumberTypes;
 	}>(),
 	{
 		region: 'US',
@@ -224,7 +226,7 @@ const focusOnSearchInput = (e: KeyboardEvent) => {
 				type="tel"
 				class="vue-simple-phone-input"
 				aria-label="Phone number input"
-				:placeholder="placeholder ? placeholder : supportExamples.includes(selectedRegion) ? getExample(selectedRegion).number?.national || '' : ''"
+				:placeholder="placeholder ? placeholder : supportExamples.includes(selectedRegion) ? getExample(selectedRegion, phoneNumberType).number?.national || '' : ''"
 				:disabled="disabled"
 			/>
 			<dialog
