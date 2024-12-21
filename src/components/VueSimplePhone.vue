@@ -143,10 +143,11 @@ const slots = useSlots();
 		</label>
 		<div
 			class="vue-simple-phone-input-container"
-			@keydown.esc="() => {
-				if (dialog?.open) closeDialog();
+			@keydown="(event) => {
+				if (event.key == 'Escape') {
+					if (dialog?.open) closeDialog();
+				}
 			}"
-			aria-label="Phone number input"
 		>
 			<dialog
 				ref="dialog"
@@ -171,7 +172,6 @@ const slots = useSlots();
 							<button
 								type="button"
 								class="vue-simple-phone-button-dropdown-item-button"
-								:aria-label="regionNames.of(country)"
 								@click="() => {
 									selectedRegion = country;
 									closeDialog();
@@ -199,9 +199,6 @@ const slots = useSlots();
 			<button
 				type="button"
 				class="vue-simple-phone-button"
-				aria-label="Country Code Selector"
-				aria-haspopup="listbox"
-				:aria-expanded="dialog?.open ?? false"
 				:disabled="disabled"
 				@click.passive="toggleDialog"
 			>
@@ -222,7 +219,6 @@ const slots = useSlots();
 				:value="formattedNumber"
 				type="tel"
 				class="vue-simple-phone-input"
-				aria-label="Phone number input"
 				:placeholder="placeholder ? placeholder : supportExamples.includes(selectedRegion) ? getExample(selectedRegion).number?.national || '' : ''"
 				:disabled="disabled"
 			/>

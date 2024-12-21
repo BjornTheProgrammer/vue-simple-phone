@@ -1,6 +1,6 @@
 import { resolve } from 'node:path';
 import vue from '@vitejs/plugin-vue';
-import { type InlineConfig, type UserConfig, defineConfig } from 'vite';
+import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
 
@@ -41,14 +41,4 @@ export default defineConfig({
 			targets: [{ src: 'src/themes', dest: './' }],
 		}),
 	],
-
-	test: {
-		browser: {
-			enabled: true,
-			name: 'chromium',
-			provider: 'playwright',
-			// https://playwright.dev
-			providerOptions: {},
-		},
-	},
-} as UserConfig & { test: InlineConfig });
+});

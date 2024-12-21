@@ -21,10 +21,6 @@ const cssCode = computed(() => {
 	--duration: .14s;
 	z-index: 10;
 	color: ${textColor.value} !important;
-	margin: 0px !important;
-	margin-top: 51px !important;
-	border: none !important;
-	padding: 0px !important;
 
 	transition: opacity var(--duration), visibility var(--duration);
 	transition-timing-function: ease-in-out;
@@ -140,6 +136,11 @@ const cssCode = computed(() => {
 	fill: ${textColor.value} !important;
 	width: 20px !important;
 	height: 20px !important;
+}
+
+.vue-simple-phone-button-dropdown-dialog {
+	margin: 0px !important;
+	margin-top: 51px !important;
 }
 
 .vue-simple-phone-button-dropdown {
