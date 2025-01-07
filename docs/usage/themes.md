@@ -27,6 +27,12 @@ Vue Simple Phone currently supports the following themes out of the box:
 	<ThemedVueSimplePhone theme="light-square" />
 </Suspense>
 
+## [`vue-simple-phone/themes/dark-square.css`](https://github.com/BjornTheProgrammer/vue-simple-phone/blob/main/src/themes/dark-square.css)
+
+<Suspense>
+	<ThemedVueSimplePhone theme="dark-square" />
+</Suspense>
+
 ## Don't see a theme you like?
 
 <script setup>
