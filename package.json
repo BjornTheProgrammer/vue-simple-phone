@@ -2,7 +2,7 @@
 	"name": "vue-simple-phone",
 	"private": false,
 	"license": "MIT",
-	"version": "1.1.0",
+	"version": "1.1.1",
 	"type": "module",
 	"files": ["dist"],
 	"main": "./dist/vue-simple-phone.umd.cjs",
@@ -28,7 +28,20 @@
 		},
 		"./themes/*": "./dist/themes/*"
 	},
-	"keywords": ["vue", "phone", "international", "multilingual", "input", "vue3", "country", "selector", "vuejs", "region", "tel", "telephone"],
+	"keywords": [
+		"vue",
+		"phone",
+		"international",
+		"multilingual",
+		"input",
+		"vue3",
+		"country",
+		"selector",
+		"vuejs",
+		"region",
+		"tel",
+		"telephone"
+	],
 	"scripts": {
 		"dev": "npm run docs:dev",
 		"build": "vue-tsc -b && vite build",
