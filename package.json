@@ -7,6 +7,14 @@
 	"files": ["dist"],
 	"main": "./dist/vue-simple-phone.umd.cjs",
 	"module": "./dist/vue-simple-phone.js",
+	"author": "Bjorn Beishline",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/BjornTheProgrammer/vue-simple-phone.git"
+	},
+	"homepage": "https://bjorntheprogrammer.github.io/vue-simple-phone/",
+	"bugs": "https://github.com/BjornTheProgrammer/vue-simple-phone/issues",
+	"description": "A multilingual, simple, and extendable phone number input component for Vue",
 	"exports": {
 		".": {
 			"import": {
@@ -20,6 +28,7 @@
 		},
 		"./themes/*": "./dist/themes/*"
 	},
+	"keywords": ["vue", "phone", "international", "multilingual", "input", "vue3", "country", "selector", "vuejs", "region", "tel", "telephone"],
 	"scripts": {
 		"dev": "npm run docs:dev",
 		"build": "vue-tsc -b && vite build",
