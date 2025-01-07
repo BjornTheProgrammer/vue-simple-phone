@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { ref, watch, onMounted } from 'vue';
 /// <reference types="vite/client" />
 import { VueSimplePhone } from '../../../../src';
 
@@ -38,13 +38,19 @@ watch(
 	},
 	{ immediate: true },
 );
+
+const makeId = () => {
+	return `id_${Math.random().toString(16).slice(2)}`
+}
+
+const id = makeId();
 </script>
 
 <template>
 	<div>
-		<VueSimplePhone />
+		<VueSimplePhone :id="id" />
 		<component is="style">
-			@scope {
+			#{{ id }} {
 				{{ css }}
 			}
 		</component>
