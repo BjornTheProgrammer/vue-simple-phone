@@ -10,7 +10,7 @@ import {
 import { countries as countriesFromFlagIcons } from 'country-flag-icons';
 import { ref, useSlots, useTemplateRef, watch } from 'vue';
 import { vClickOutside } from '../directives/click-outside';
-import CountryFlag from '../flags/CountryFlag.vue';
+import CountryFlag from './CountryFlag.vue';
 
 const props = withDefaults(
 	defineProps<{
