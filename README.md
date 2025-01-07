@@ -1,6 +1,6 @@
 # Vue Simple Phone
 
-A simple and extendable phone number input component for Vue
+A multilingual, simple, and extendable phone number input component for Vue
 
 ![Vue Simple Phone logo](https://bjorntheprogrammer.github.io/vue-simple-phone/images/logo.png)
 
