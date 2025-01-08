@@ -48,9 +48,13 @@ const id = makeId();
 
 <template>
 	<div>
-		<VueSimplePhone :id="id" />
+		<VueSimplePhone :class="id" />
 		<component is="style">
-			#{{ id }} {
+			.{{ id }} {
+				{{ css }}
+			}
+
+			@scope {
 				{{ css }}
 			}
 		</component>
