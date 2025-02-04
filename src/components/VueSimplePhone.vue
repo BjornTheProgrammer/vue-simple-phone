@@ -24,6 +24,7 @@ const props = withDefaults(
 		displayFlags?: boolean;
 		autocomplete?: boolean;
 		phoneNumberType?: PhoneNumberTypes;
+		disableAutocompleteProcessing?: boolean;
 	}>(),
 	{
 		region: 'US',
@@ -254,6 +255,7 @@ const focusOnSearchInput = (e: KeyboardEvent) => {
 						autofocus
 						tabindex="-1"
 						@keydown="(event) => {
+							if (disableAutocompleteProcessing === true) return;
 							const key = event.key;
 							if (key === 'Backspace' || key === 'Delete') {
 								search = '';

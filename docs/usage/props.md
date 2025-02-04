@@ -115,9 +115,23 @@ Whether or not to enable autocomplete for the country selector.
 
 <VueSimplePhone :autocomplete="false"/>
 
+## disableAutocompleteProcessing
+
+Controls how the autocomplete input behaves. When set to true, the input functions like a standard text field, allowing character-by-character editing (e.g., backspace removes only the last character instead of clearing the entire query).
+
+* Type: `Boolean`
+* Default: `false`
+
+```vue
+<VueSimplePhone :disableAutocompleteProcessing="true"/>
+```
+
+<VueSimplePhone :disableAutocompleteProcessing="true"/>
+
+
 ## phoneNumberType
 
-Whether or not to enable autocomplete for the country selector.
+The type of phone number example to give to the user.
 
 * Type: [`PhoneNumberTypes`](https://github.com/grantila/awesome-phonenumber?tab=readme-ov-file#phone-number-types)
 * Default: `undefined`
