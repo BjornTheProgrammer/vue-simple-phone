@@ -255,9 +255,7 @@ const copyCode = (e: MouseEvent) => {
 
 	<div>
 		<component is="style">
-			@scope {
-				{{ cssCode }}
-			}
+			{{ cssCode }}
 		</component>
 		<VueSimplePhone :opened="true" />
 	</div>
