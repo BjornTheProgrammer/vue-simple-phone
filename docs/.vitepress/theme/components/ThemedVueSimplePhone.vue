@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue';
+import { ref, useId, watch } from 'vue';
 /// <reference types="vite/client" />
 import { VueSimplePhone } from '../../../../src';
 
@@ -39,11 +39,7 @@ watch(
 	{ immediate: true },
 );
 
-const makeId = () => {
-	return `id_${Math.random().toString(16).slice(2)}`;
-};
-
-const id = makeId();
+const id = useId();
 </script>
 
 <template>
