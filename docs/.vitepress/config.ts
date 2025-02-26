@@ -1,3 +1,4 @@
+import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'vitepress';
 
 // https://vitepress.dev/reference/site-config
@@ -57,6 +58,12 @@ export default defineConfig({
 				icon: 'github',
 				link: 'https://github.com/BjornTheProgrammer/vue-simple-phone',
 			},
+		],
+	},
+	vite: {
+		plugins: [
+			// @ts-ignore
+			tailwindcss(),
 		],
 	},
 });
