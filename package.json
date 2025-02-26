@@ -4,9 +4,7 @@
 	"license": "MIT",
 	"version": "1.2.0",
 	"type": "module",
-	"files": [
-		"dist"
-	],
+	"files": ["dist"],
 	"main": "./dist/vue-simple-phone.umd.cjs",
 	"module": "./dist/vue-simple-phone.js",
 	"author": "Bjorn Beishline",
