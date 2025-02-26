@@ -4,7 +4,9 @@
 	"license": "MIT",
 	"version": "1.2.0",
 	"type": "module",
-	"files": ["dist"],
+	"files": [
+		"dist"
+	],
 	"main": "./dist/vue-simple-phone.umd.cjs",
 	"module": "./dist/vue-simple-phone.js",
 	"author": "Bjorn Beishline",
@@ -54,6 +56,7 @@
 		"test": "vitest"
 	},
 	"dependencies": {
+		"@tailwindcss/vite": "^4.0.9",
 		"awesome-phonenumber": "^7.3.0",
 		"country-flag-icons": "^1.5.18"
 	},
@@ -63,9 +66,7 @@
 		"@vitejs/plugin-vue": "^5.2.1",
 		"@vitest/browser": "^3.0.7",
 		"@vue/test-utils": "^2.4.6",
-		"autoprefixer": "^10.4.20",
 		"playwright": "^1.50.1",
-		"postcss": "^8.5.3",
 		"sass-embedded": "^1.85.1",
 		"tailwindcss": "^4.0.9",
 		"typescript": "~5.7.3",
