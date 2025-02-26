@@ -57,7 +57,7 @@
 	},
 	"dependencies": {
 		"@tailwindcss/vite": "^4.0.9",
-		"awesome-phonenumber": "^7.3.0",
+		"awesome-phonenumber": "~7.2.0",
 		"country-flag-icons": "^1.5.18"
 	},
 	"devDependencies": {
