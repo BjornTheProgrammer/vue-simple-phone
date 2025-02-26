@@ -3,6 +3,7 @@ import vue from '@vitejs/plugin-vue';
 import { type InlineConfig, type UserConfig, defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
+import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -40,6 +41,7 @@ export default defineConfig({
 		viteStaticCopy({
 			targets: [{ src: 'src/themes', dest: './' }],
 		}),
+		tailwindcss(),
 	],
 
 	test: {
