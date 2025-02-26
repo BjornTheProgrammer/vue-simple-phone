@@ -9,7 +9,7 @@ import 'vue-simple-phone/themes/light.css' // Include the default theme
 </script>
 
 <template>
-  <VueSimplePhone>Phone Number</VueSimplePhone
+  <VueSimplePhone>Phone Number</VueSimplePhone>
 </template>
 ```
 
