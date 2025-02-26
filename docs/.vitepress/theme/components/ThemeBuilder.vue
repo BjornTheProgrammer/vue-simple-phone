@@ -271,5 +271,10 @@ const copyCode = (e: MouseEvent) => {
 </template>
 
 <style>
+	@reference "tailwindcss";
 	@import url('vue-accessible-color-picker/styles');
+
+	.vacp-color-picker {
+		@apply text-black
+	}
 </style>
