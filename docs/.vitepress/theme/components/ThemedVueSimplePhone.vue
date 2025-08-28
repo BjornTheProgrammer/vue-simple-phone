@@ -11,19 +11,19 @@ const css = ref('');
 
 type GlobFunction = () => string;
 
-// @ts-ignore
+// @ts-expect-error
 const imports = import.meta.glob('../../../../src/themes/*.css', {
 	query: '?inline',
 	import: 'default',
 });
 
 const cssThemes = new Map<string, string>(
-	// @ts-ignore
 	await Promise.all(
-		Object.entries(imports).map(async ([moduleString, func]) => {
-			// @ts-ignore
-			return [moduleString, await func()];
-		}),
+		Object.entries(imports as (() => Promise<string>)[]).map(
+			async ([moduleString, func]) => {
+				return [moduleString, await func()] as [string, string];
+			},
+		),
 	),
 );
 
@@ -43,16 +43,14 @@ const id = useId();
 </script>
 
 <template>
-	<div>
-		<VueSimplePhone :class="id" />
-		<component is="style">
-			.{{ id }} {
-				{{ css }}
-			}
-
-			@scope {
-				{{ css }}
-			}
-		</component>
-	</div>
+    <div>
+        <VueSimplePhone :class="id" />
+        <component is="style">
+            .{{ id }} {
+            {{ css }}
+            } @scope {
+            {{ css }}
+            }
+        </component>
+    </div>
 </template>

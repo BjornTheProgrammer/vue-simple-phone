@@ -7,7 +7,12 @@
 	},
 	"files": {
 		"ignoreUnknown": false,
-		"includes": ["./**/*.{vue,json,ts,css}", "!dist", "!docs/.vitepress/cache"]
+		"includes": [
+			"./**/*.{vue,json,ts,css}",
+			"!dist",
+			"!docs/.vitepress/cache",
+			"!docs/.vitepress/dist"
+		]
 	},
 	"formatter": {
 		"enabled": true,
@@ -34,5 +39,22 @@
 		"parser": {
 			"allowComments": true
 		}
-	}
+	},
+	"overrides": [
+		{
+			"includes": ["**/*.svelte", "**/*.astro", "**/*.vue"],
+			"linter": {
+				"rules": {
+					"style": {
+						"useConst": "off",
+						"useImportType": "off"
+					},
+					"correctness": {
+						"noUnusedVariables": "off",
+						"noUnusedImports": "off"
+					}
+				}
+			}
+		}
+	]
 }

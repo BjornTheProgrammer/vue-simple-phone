@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import {
-	type ParsedPhoneNumber,
-	type PhoneNumberTypes,
 	getAsYouType,
 	getCountryCodeForRegionCode,
 	getExample,
 	getSupportedRegionCodes,
+	type ParsedPhoneNumber,
+	type PhoneNumberTypes,
 } from 'awesome-phonenumber';
 import { countries as countriesFromFlagIcons } from 'country-flag-icons';
 import { ref, useSlots, useTemplateRef, watch } from 'vue';
@@ -28,8 +28,7 @@ const props = withDefaults(
 	}>(),
 	{
 		region: 'US',
-		// @ts-ignore
-		language: ['en'] as Intl.LocalesArgument,
+		language: 'en',
 		countries: (props) => {
 			// This is kinda ugly, but basically all it does is it makes it so that in whatever specified
 			// language that is used, the list is sorted alphabetically by default. Any improvements

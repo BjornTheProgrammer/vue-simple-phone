@@ -1,6 +1,6 @@
 import { resolve } from 'node:path';
 import vue from '@vitejs/plugin-vue';
-import { type InlineConfig, type UserConfig, defineConfig } from 'vite';
+import { defineConfig, type InlineConfig, type UserConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
 
