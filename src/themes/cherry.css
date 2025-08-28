@@ -1,5 +1,5 @@
 .vue-simple-phone-button-dropdown-dialog {
-	--duration: .14s;
+	--duration: 0.14s;
 	z-index: 10;
 	color: #ffa9a9ff !important;
 	margin: 0px !important;
@@ -7,7 +7,9 @@
 	border: none !important;
 	padding: 0px !important;
 
-	transition: opacity var(--duration), visibility var(--duration);
+	transition:
+		opacity var(--duration),
+		visibility var(--duration);
 	transition-timing-function: ease-in-out;
 
 	&[open] {
@@ -65,7 +67,9 @@
 	border-radius: 10px !important;
 	position: relative !important;
 	width: 100% !important;
-	box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+	box-shadow:
+		0 1px 3px 0 rgb(0 0 0 / 0.1),
+		0 1px 2px -1px rgb(0 0 0 / 0.1);
 	border: solid 1px #ff000022 !important;
 }
 
