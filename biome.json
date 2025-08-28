@@ -1,5 +1,5 @@
 {
-	"$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
 	"vcs": {
 		"enabled": false,
 		"clientKind": "git",
@@ -7,19 +7,22 @@
 	},
 	"files": {
 		"ignoreUnknown": false,
-		"ignore": ["dist", "docs/.vitepress/cache"]
+		"includes": ["./**/*.{vue,json,ts,css}", "!dist", "!docs/.vitepress/cache"]
 	},
 	"formatter": {
 		"enabled": true,
 		"indentStyle": "tab"
 	},
-	"organizeImports": {
-		"enabled": true
-	},
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"recommended": true
+			"recommended": true,
+			"complexity": {
+				"noImportantStyles": "off"
+			},
+			"suspicious": {
+				"noDuplicateProperties": "off"
+			}
 		}
 	},
 	"javascript": {
