@@ -8,7 +8,7 @@ import {
 	type PhoneNumberTypes,
 } from 'awesome-phonenumber';
 import { countries as countriesFromFlagIcons } from 'country-flag-icons';
-import { ref, useSlots, useTemplateRef, watch } from 'vue';
+import { onMounted, ref, useSlots, useTemplateRef, watch } from 'vue';
 import { vClickOutside } from '../directives/click-outside';
 import CountryFlag from './CountryFlag.vue';
 
@@ -159,14 +159,12 @@ const handleKeypress = (e: KeyboardEvent) => {
 };
 
 const closeDialog = () => {
-	emit('close');
 	if (props.opened === undefined) dialogRef.value?.close();
 };
 
 const openDialog = () => {
 	// Have to do this, because otherwise it will trigger before the v-click-outside does.
 	setTimeout(() => {
-		emit('open');
 		if (props.opened === undefined) dialogRef.value?.show();
 	});
 };
@@ -176,14 +174,41 @@ const toggleDialog = () => {
 	openDialog();
 };
 
+onMounted(() => {
+	let openCloseObserver = new MutationObserver((records, _observer) => {
+		for (const record of records) {
+			if (record.attributeName !== 'open') continue;
+			const element = record.target as HTMLDetailsElement;
+			let openAttibute = element.getAttribute('open');
+			let opened = openAttibute === 'true' || openAttibute === '';
+			if (opened) {
+				element.addEventListener(
+					'transitionend',
+					() => {
+						focusOnSearchInput();
+					},
+					{ once: true },
+				);
+				emit('open');
+			}
+			if (!opened) emit('close');
+		}
+	});
+
+	if (dialogRef.value)
+		openCloseObserver.observe(dialogRef.value, {
+			attributes: true,
+		});
+});
+
 const supportExamples = getSupportedRegionCodes();
 const slots = useSlots();
 
-const focusOnSearchInput = (e: KeyboardEvent) => {
+const focusOnSearchInput = (e?: KeyboardEvent) => {
 	if (!props.autocomplete) return;
 	// If not an alpha numeric key, then don't handle
-	if (!/^[a-z0-9]$/i.test(e.key)) return;
-	e.preventDefault();
+	if (e && !/^[a-z0-9]$/i.test(e.key)) return;
+	if (e) e.preventDefault();
 	searchInputRef.value?.focus();
 };
 </script>
@@ -285,7 +310,7 @@ const focusOnSearchInput = (e: KeyboardEvent) => {
 										v-if="displayFlags"
 										:flag="country"
 										class="vue-simple-phone-button-icon"
-										:aria-hidden="true" 
+										:aria-hidden="true"
 									/>
 								</Suspense>
 								<div
