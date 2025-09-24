@@ -61,9 +61,6 @@ export default defineConfig({
 		],
 	},
 	vite: {
-		plugins: [
-			// @ts-expect-error
-			tailwindcss(),
-		],
+		plugins: [tailwindcss()],
 	},
 });
