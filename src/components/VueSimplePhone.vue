@@ -65,6 +65,7 @@ const props = withDefaults(
 		disabled: false,
 		opened: undefined,
 		displayFlags: true,
+		autocomplete: undefined,
 		searchAutocomplete: true,
 	},
 );
