@@ -29,8 +29,8 @@ export default defineConfig({
 		nav: [
 			{ text: 'Home', link: '/' },
 			{ text: 'Getting Started', link: '/guide/getting-started' },
-			{ text: 'Usage', link: '/guide/usage' },
-			{ text: 'Theming', link: '/guide/theming' },
+			{ text: 'Usage', link: '/usage/props' },
+			{ text: 'Theming', link: '/theming/themes' },
 		],
 
 		sidebar: [
