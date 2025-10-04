@@ -7,7 +7,7 @@ import '../../src/themes/light.css'
 import { useData } from 'vitepress'
 import { ref, onMounted } from 'vue'
 
-const { site, theme, page, frontmatter } = useData()
+const { site, theme, page, frontmatter, isDark } = useData()
 </script>
 
 ## region
@@ -102,7 +102,21 @@ Whether or not to display flags.
 
 <VueSimplePhone :displayFlags="false"/>
 
-## autocomplete
+## htmlAutocomplete
+
+This is an alias for the html autocomplete attribute on the input element. In the future this will be named just `autocomplete`.
+For backwards compatability reasons this is not the case currently.
+
+* Type: [`InputHTMLAttributes["autocomplete"]`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#autocomplete)
+* Default: `undefined`
+
+```vue
+<VueSimplePhone htmlAutocomplete="off"/>
+```
+
+<VueSimplePhone htmlAutocomplete="off"/>
+
+## searchAutocomplete
 
 Whether or not to enable autocomplete for the country selector.
 
@@ -110,10 +124,10 @@ Whether or not to enable autocomplete for the country selector.
 * Default: `true`
 
 ```vue
-<VueSimplePhone :autocomplete="false"/>
+<VueSimplePhone :searchAutocomplete="false"/>
 ```
 
-<VueSimplePhone :autocomplete="false"/>
+<VueSimplePhone :searchAutocomplete="false"/>
 
 ## disableAutocompleteProcessing
 
@@ -156,6 +170,49 @@ Whether or not the dropdown is open, note that it is not closeable, unless you c
 <VueSimplePhone :opened="true" />
 
 <div class="mt-[250px]"></div>
+
+## autocomplete
+
+::: warning Deprecated
+The `autocomplete` prop is **deprecated**.
+It will be repurposed to alias `htmlAutocomplete` in the future.
+Please use `searchAutocomplete` instead.
+:::
+
+Whether or not to enable autocomplete for the country selector.
+
+* Type: `Boolean`
+* Default: `true`
+
+```vue
+<!-- ❌ Deprecated -->
+<VueSimplePhone :autocomplete="false"/>
+
+<!-- ✅ Use instead -->
+<VueSimplePhone :searchAutocomplete="false"/>
+```
+
+## Input Attributes
+
+All input attributes are automatically passed through, so attributes such as `required`, `form`, `name`, `readonly`, etc. will
+be defined if passed through.
+
+```vue
+<form @submit.prevent="">
+	<VueSimplePhone required="true"/>
+	<button type="submit">Test Submit</button>
+</form>
+```
+
+<form @submit.prevent="">
+	<VueSimplePhone required="true"/>
+	<button
+		:class="(isDark ? `dark-button`: `light-button`)"
+		type="submit"
+	>
+		Test Submit
+	</button>
+</form>
 
 ## Missing Something?
 

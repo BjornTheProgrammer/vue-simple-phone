@@ -262,7 +262,7 @@ const copyCode = (e: MouseEvent) => {
 
 	<div class="w-full">
 		<button
-			:class="(isDark ? `bg-neutral-900 text-white shadow shadow-neutral-600 hover:bg-neutral-800`: `bg-neutral-100 text-black shadow hover:bg-neutral-200`) + ' rounded p-2 my-5 block ml-auto'"
+			:class="(isDark ? `dark-button`: `light-button`)"
 			@click="copyCode"
 		>
 			Copy Code!
