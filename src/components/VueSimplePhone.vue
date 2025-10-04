@@ -64,6 +64,8 @@ const emit = defineEmits<{
 	close: [];
 }>();
 
+defineOptions({ inheritAttrs: false });
+
 const searchAutocomplete = ref(props.searchAutocomplete);
 
 watch(
@@ -286,6 +288,7 @@ const vueSimplePhoneId = useId();
 				:placeholder="placeholder ? placeholder : supportExamples.includes(selectedRegion) ? getExample(selectedRegion, phoneNumberType).number?.national || '' : ''"
 				:disabled="disabled"
 				:autocomplete="htmlAutocomplete"
+				v-bind="$attrs"
 			/>
 			<dialog
 				ref="dialog"
