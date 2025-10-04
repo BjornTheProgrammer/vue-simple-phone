@@ -26,7 +26,8 @@
 				"noImportantStyles": "off"
 			},
 			"suspicious": {
-				"noDuplicateProperties": "off"
+				"noDuplicateProperties": "off",
+				"noUnknownAtRules": "off"
 			}
 		}
 	},
