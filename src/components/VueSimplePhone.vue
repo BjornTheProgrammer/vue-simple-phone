@@ -8,7 +8,7 @@ import {
 	type PhoneNumberTypes,
 } from 'awesome-phonenumber';
 import { countries as countriesFromFlagIcons } from 'country-flag-icons';
-import { onMounted, ref, useSlots, useTemplateRef, watch, useId } from 'vue';
+import { type InputHTMLAttributes, onMounted, ref, useId, useSlots, useTemplateRef, watch } from 'vue';
 import { vClickOutside } from '../directives/click-outside';
 import CountryFlag from './CountryFlag.vue';
 
@@ -22,9 +22,11 @@ const props = withDefaults(
 		opened?: boolean;
 		placeholder?: string;
 		displayFlags?: boolean;
-		autocomplete?: boolean;
 		phoneNumberType?: PhoneNumberTypes;
 		disableAutocompleteProcessing?: boolean;
+		autocomplete?: boolean;
+		searchAutocomplete?: boolean;
+		htmlAutocomplete?: InputHTMLAttributes["autocomplete"];
 	}>(),
 	{
 		region: 'US',
@@ -53,7 +55,7 @@ const props = withDefaults(
 		disabled: false,
 		opened: undefined,
 		displayFlags: true,
-		autocomplete: true,
+		searchAutocomplete: true,
 	},
 );
 
@@ -61,6 +63,30 @@ const emit = defineEmits<{
 	open: [];
 	close: [];
 }>();
+
+const searchAutocomplete = ref(props.searchAutocomplete);
+
+watch(
+	() => props.autocomplete,
+	(val) => {
+		if (val !== undefined) {
+			console.warn(
+				'[DEPRECATED] The `autocomplete` prop is deprecated, and will be repurposed to alias `htmlAutocomplete` in the future. Use `searchAutocomplete` instead.',
+			);
+		}
+
+		searchAutocomplete.value = props.autocomplete;
+	},
+	{ immediate: true },
+);
+
+watch(
+	() => props.searchAutocomplete,
+	(val) => {
+		searchAutocomplete.value = val;
+	},
+	{ immediate: true },
+);
 
 let regionNames = new Intl.DisplayNames(props.language, { type: 'region' });
 
@@ -205,7 +231,7 @@ const supportExamples = getSupportedRegionCodes();
 const slots = useSlots();
 
 const focusOnSearchInput = (e?: KeyboardEvent) => {
-	if (!props.autocomplete) return;
+	if (!searchAutocomplete) return;
 	// If not an alpha numeric key, then don't handle
 	if (e && !/^[a-z0-9]$/i.test(e.key)) return;
 	if (e) e.preventDefault();
@@ -259,6 +285,7 @@ const vueSimplePhoneId = useId();
 				aria-label="Phone number input"
 				:placeholder="placeholder ? placeholder : supportExamples.includes(selectedRegion) ? getExample(selectedRegion, phoneNumberType).number?.national || '' : ''"
 				:disabled="disabled"
+				:autocomplete="htmlAutocomplete"
 			/>
 			<dialog
 				ref="dialog"
@@ -273,7 +300,7 @@ const vueSimplePhoneId = useId();
 					:disabled="disabled"
 				>
 					<input
-						v-if="autocomplete"
+						v-if="searchAutocomplete"
 						type="text"
 						ref="searchInput"
 						class="vue-simple-phone-button-search"
