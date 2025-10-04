@@ -27,6 +27,7 @@ const props = withDefaults(
 		autocomplete?: boolean;
 		searchAutocomplete?: boolean;
 		htmlAutocomplete?: InputHTMLAttributes["autocomplete"];
+		class?: string;
 	}>(),
 	{
 		region: 'US',
@@ -231,7 +232,7 @@ const vueSimplePhoneId = useId();
 </script>
 
 <template>
-	<div class="vue-simple-phone-container">
+	<div :class="`vue-simple-phone-container ${props.class}`">
 		<label :for="vueSimplePhoneId" v-if="slots.default" class="vue-simple-phone-label">
 			<slot />
 		</label>
