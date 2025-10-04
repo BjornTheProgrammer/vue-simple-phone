@@ -198,7 +198,6 @@ const vueSimplePhoneId = useId();
 
 <template>
 	<div :class="`vue-simple-phone-container ${props.class}`">
-		model: <pre>{{JSON.stringify(model, null, 2)}}</pre>
 		<label :for="vueSimplePhoneId" v-if="slots.default" class="vue-simple-phone-label">
 			<slot />
 		</label>
