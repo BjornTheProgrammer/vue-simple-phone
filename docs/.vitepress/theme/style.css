@@ -1,1 +1,11 @@
 @import "tailwindcss";
+
+.dark-button {
+	@apply rounded p-3 my-5 block ml-auto;
+	@apply bg-neutral-900 text-white shadow  shadow-neutral-300 hover:bg-neutral-800;
+}
+
+.light-button {
+	@apply rounded p-3 my-5 block ml-auto;
+	@apply bg-neutral-100 text-black shadow hover:bg-neutral-200;
+}

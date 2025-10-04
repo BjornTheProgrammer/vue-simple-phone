@@ -29,6 +29,8 @@ export default defineConfig({
 		nav: [
 			{ text: 'Home', link: '/' },
 			{ text: 'Getting Started', link: '/guide/getting-started' },
+			{ text: 'Usage', link: '/guide/usage' },
+			{ text: 'Theming', link: '/guide/theming' },
 		],
 
 		sidebar: [
@@ -45,10 +47,15 @@ export default defineConfig({
 					{ text: 'Props', link: '/usage/props' },
 					{ text: 'Events', link: '/usage/events' },
 					{ text: 'Slots', link: '/usage/slot' },
-					{ text: 'Themes', link: '/usage/themes' },
-					{ text: 'Making a Theme', link: '/usage/making-a-theme' },
-					{ text: 'Theme Builder', link: '/usage/theme-builder' },
 					{ text: 'Additional Exports', link: '/usage/additional-exports' },
+				],
+			},
+			{
+				text: 'Theming',
+				items: [
+					{ text: 'Built-in Themes', link: '/theming/themes' },
+					{ text: 'Making a Theme', link: '/theming/making-a-theme' },
+					{ text: 'Theme Builder', link: '/theming/theme-builder' },
 				],
 			},
 		],
