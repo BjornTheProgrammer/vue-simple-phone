@@ -8,7 +8,16 @@ import {
 	type PhoneNumberTypes,
 } from 'awesome-phonenumber';
 import { countries as countriesFromFlagIcons } from 'country-flag-icons';
-import { computed, type InputHTMLAttributes, onMounted, ref, useId, useSlots, useTemplateRef, watch } from 'vue';
+import {
+	computed,
+	type InputHTMLAttributes,
+	onMounted,
+	ref,
+	useId,
+	useSlots,
+	useTemplateRef,
+	watch,
+} from 'vue';
 import { vClickOutside } from '../directives/click-outside';
 import CountryFlag from './CountryFlag.vue';
 
@@ -26,7 +35,7 @@ const props = withDefaults(
 		disableAutocompleteProcessing?: boolean;
 		autocomplete?: boolean;
 		searchAutocomplete?: boolean;
-		htmlAutocomplete?: InputHTMLAttributes["autocomplete"];
+		htmlAutocomplete?: InputHTMLAttributes['autocomplete'];
 		class?: string;
 	}>(),
 	{
@@ -68,14 +77,14 @@ const emit = defineEmits<{
 defineOptions({ inheritAttrs: false });
 
 const searchAutocomplete = computed(() => {
-  if (props.autocomplete !== undefined) {
-    console.warn(
-      "[DEPRECATED] The `autocomplete` prop is deprecated and will be repurposed " +
-      "for HTML autocomplete in the future. Use `searchAutocomplete` instead."
-    );
-    return props.autocomplete;
-  }
-  return props.searchAutocomplete;
+	if (props.autocomplete !== undefined) {
+		console.warn(
+			'[DEPRECATED] The `autocomplete` prop is deprecated and will be repurposed ' +
+				'for HTML autocomplete in the future. Use `searchAutocomplete` instead.',
+		);
+		return props.autocomplete;
+	}
+	return props.searchAutocomplete;
 });
 
 let regionNames = new Intl.DisplayNames(props.language, { type: 'region' });
