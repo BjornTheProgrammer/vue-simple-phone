@@ -8,7 +8,7 @@ import {
 	type PhoneNumberTypes,
 } from 'awesome-phonenumber';
 import { countries as countriesFromFlagIcons } from 'country-flag-icons';
-import { onMounted, ref, useSlots, useTemplateRef, watch } from 'vue';
+import { onMounted, ref, useSlots, useTemplateRef, watch, useId } from 'vue';
 import { vClickOutside } from '../directives/click-outside';
 import CountryFlag from './CountryFlag.vue';
 
@@ -211,11 +211,13 @@ const focusOnSearchInput = (e?: KeyboardEvent) => {
 	if (e) e.preventDefault();
 	searchInputRef.value?.focus();
 };
+
+const vueSimplePhoneId = useId();
 </script>
 
 <template>
 	<div class="vue-simple-phone-container">
-		<label v-if="slots.default" class="vue-simple-phone-label">
+		<label :for="vueSimplePhoneId" v-if="slots.default" class="vue-simple-phone-label">
 			<slot />
 		</label>
 		<div
@@ -249,6 +251,7 @@ const focusOnSearchInput = (e?: KeyboardEvent) => {
 				</svg>
 			</button>
 			<input
+				:id="vueSimplePhoneId"
 				@keydown="handleKeypress"
 				:value="formattedNumber"
 				type="tel"
