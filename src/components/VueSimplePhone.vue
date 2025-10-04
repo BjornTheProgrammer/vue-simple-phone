@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import {
-	getAsYouType,
 	getCountryCodeForRegionCode,
 	getExample,
 	getSupportedRegionCodes,
@@ -18,6 +17,7 @@ import {
 	useTemplateRef,
 	watch,
 } from 'vue';
+import { usePhoneInput } from '../composables/usePhoneInput.ts';
 import { vClickOutside } from '../directives/click-outside';
 import CountryFlag from './CountryFlag.vue';
 
@@ -102,6 +102,11 @@ const searchInputRef = useTemplateRef('searchInput');
 const selectedRegion = ref(props.region);
 const searchedCountries = ref<string[]>(props.countries);
 
+const model = defineModel<ParsedPhoneNumber>();
+
+const { formattedNumber, handlePaste, handleCopy, handleKeypress } =
+	usePhoneInput(model, selectedRegion, props.value, props.disabled);
+
 watch(
 	() => props.language,
 	(newValue, oldValue) => {
@@ -133,82 +138,6 @@ watch(search, (newValue) => {
 
 	searchedCountries.value = newCountries;
 });
-
-const model = defineModel<ParsedPhoneNumber>();
-
-let ayt = getAsYouType(props.region);
-if (props.value) ayt.reset(props.value);
-model.value = ayt.getPhoneNumber();
-
-watch(selectedRegion, async (newRegion) => {
-	const number = ayt.number();
-	ayt = getAsYouType(newRegion);
-	ayt.reset(number);
-
-	model.value = ayt.getPhoneNumber();
-});
-
-const formattedNumber = ref(ayt.number());
-
-function isNumeric(str: string) {
-	if (typeof str !== 'string') return false; // we only process strings!
-	return (
-		!Number.isNaN(str as unknown as number) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
-		!Number.isNaN(Number.parseFloat(str))
-	); // ...and ensure strings of whitespace fail
-}
-
-const handlePaste = (e: ClipboardEvent) => {
-	if (props.disabled) return;
-	e.preventDefault();
-
-	const pasted = e.clipboardData?.getData("text") ?? "";
-	if (!pasted) return;
-
-	for (const ch of pasted) {
-		if (isNumeric(ch)) ayt.addChar(ch);
-	}
-
-	let phone = ayt.getPhoneNumber();
-	model.value = phone;
-	formattedNumber.value = phone.number?.national || ayt.number();
-};
-
-const handleCopy = (e: ClipboardEvent) => {
-	if (!model.value) return;
-	e.preventDefault();
-	e.clipboardData?.setData("text/plain", model.value.number?.international ?? "");
-};
-
-const handleKeypress = (e: KeyboardEvent) => {
-	if ((e.ctrlKey || e.metaKey) && (e.key === "v" || e.key === "V" || e.key === "c" || e.key === "C")) {
-		return;
-	}
-
-	if (e.key === 'Enter' || e.key === 'Tab') return;
-	e.preventDefault();
-
-	if (props.disabled) return;
-
-	const isNumber = isNumeric(e.key) && e.key !== ' ';
-
-	if (e.key === 'Delete' || e.key === 'Backspace') ayt.removeChar();
-	else if (isNumber) ayt.addChar(e.key);
-
-	let phone = ayt.getPhoneNumber();
-	if (
-		phone.possibility !== 'is-possible' &&
-		phone.possibility !== 'unknown' &&
-		phone.possibility !== 'too-short'
-	)
-		ayt.removeChar();
-
-	phone = ayt.getPhoneNumber();
-
-	model.value = phone;
-
-	formattedNumber.value = phone.number?.national || ayt.number();
-};
 
 const closeDialog = () => {
 	if (props.opened === undefined) dialogRef.value?.close();
@@ -269,6 +198,7 @@ const vueSimplePhoneId = useId();
 
 <template>
 	<div :class="`vue-simple-phone-container ${props.class}`">
+		model: <pre>{{JSON.stringify(model, null, 2)}}</pre>
 		<label :for="vueSimplePhoneId" v-if="slots.default" class="vue-simple-phone-label">
 			<slot />
 		</label>
