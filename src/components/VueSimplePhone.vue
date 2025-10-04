@@ -158,7 +158,33 @@ function isNumeric(str: string) {
 	); // ...and ensure strings of whitespace fail
 }
 
+const handlePaste = (e: ClipboardEvent) => {
+	if (props.disabled) return;
+	e.preventDefault();
+
+	const pasted = e.clipboardData?.getData("text") ?? "";
+	if (!pasted) return;
+
+	for (const ch of pasted) {
+		if (isNumeric(ch)) ayt.addChar(ch);
+	}
+
+	let phone = ayt.getPhoneNumber();
+	model.value = phone;
+	formattedNumber.value = phone.number?.national || ayt.number();
+};
+
+const handleCopy = (e: ClipboardEvent) => {
+	if (!model.value) return;
+	e.preventDefault();
+	e.clipboardData?.setData("text/plain", model.value.number?.international ?? "");
+};
+
 const handleKeypress = (e: KeyboardEvent) => {
+	if ((e.ctrlKey || e.metaKey) && (e.key === "v" || e.key === "V" || e.key === "c" || e.key === "C")) {
+		return;
+	}
+
 	if (e.key === 'Enter' || e.key === 'Tab') return;
 	e.preventDefault();
 
@@ -279,6 +305,8 @@ const vueSimplePhoneId = useId();
 			<input
 				:id="vueSimplePhoneId"
 				@keydown="handleKeypress"
+				@paste="handlePaste"
+				@copy="handleCopy"
 				:value="formattedNumber"
 				type="tel"
 				class="vue-simple-phone-input"
