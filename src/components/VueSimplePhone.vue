@@ -8,7 +8,7 @@ import {
 	type PhoneNumberTypes,
 } from 'awesome-phonenumber';
 import { countries as countriesFromFlagIcons } from 'country-flag-icons';
-import { type InputHTMLAttributes, onMounted, ref, useId, useSlots, useTemplateRef, watch } from 'vue';
+import { computed, type InputHTMLAttributes, onMounted, ref, useId, useSlots, useTemplateRef, watch } from 'vue';
 import { vClickOutside } from '../directives/click-outside';
 import CountryFlag from './CountryFlag.vue';
 
@@ -66,29 +66,16 @@ const emit = defineEmits<{
 
 defineOptions({ inheritAttrs: false });
 
-const searchAutocomplete = ref(props.searchAutocomplete);
-
-watch(
-	() => props.autocomplete,
-	(val) => {
-		if (val !== undefined) {
-			console.warn(
-				'[DEPRECATED] The `autocomplete` prop is deprecated, and will be repurposed to alias `htmlAutocomplete` in the future. Use `searchAutocomplete` instead.',
-			);
-		}
-
-		searchAutocomplete.value = props.autocomplete;
-	},
-	{ immediate: true },
-);
-
-watch(
-	() => props.searchAutocomplete,
-	(val) => {
-		searchAutocomplete.value = val;
-	},
-	{ immediate: true },
-);
+const searchAutocomplete = computed(() => {
+  if (props.autocomplete !== undefined) {
+    console.warn(
+      "[DEPRECATED] The `autocomplete` prop is deprecated and will be repurposed " +
+      "for HTML autocomplete in the future. Use `searchAutocomplete` instead."
+    );
+    return props.autocomplete;
+  }
+  return props.searchAutocomplete;
+});
 
 let regionNames = new Intl.DisplayNames(props.language, { type: 'region' });
 
@@ -233,7 +220,7 @@ const supportExamples = getSupportedRegionCodes();
 const slots = useSlots();
 
 const focusOnSearchInput = (e?: KeyboardEvent) => {
-	if (!searchAutocomplete) return;
+	if (!searchAutocomplete.value) return;
 	// If not an alpha numeric key, then don't handle
 	if (e && !/^[a-z0-9]$/i.test(e.key)) return;
 	if (e) e.preventDefault();
